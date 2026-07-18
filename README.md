@@ -15,7 +15,7 @@ frontend's `messages/*.json`. It changes with the code, not with the editor.
 cd backend
 python -m venv .venv
 source .venv/Scripts/activate        # Windows (Git Bash); use .venv/bin/activate on Linux/macOS
-pip install -r requirements.txt
+uv sync --locked
 
 cp .env.example .env
 python -c "from django.core.management.utils import get_random_secret_key as k; print(k())"
@@ -156,9 +156,9 @@ python manage.py test
 125 tests. To measure coverage:
 
 ```bash
-pip install coverage
-coverage run --source='.' --omit='*/migrations/*,*/tests.py,*/test_*.py,manage.py,scripts/*,config/wsgi.py,config/asgi.py' manage.py test
-coverage report
+uv add --dev coverage
+uv run coverage run --source='.' --omit='*/migrations/*,*/tests.py,*/test_*.py,manage.py,scripts/*,config/wsgi.py,config/asgi.py' manage.py test
+uv run coverage report
 ```
 
 ## Docker

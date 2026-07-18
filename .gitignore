@@ -21,6 +21,7 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
+.uv-cache/
 
 # migration artifact produced by seed/export_frontend_data.mjs
 seed/content.json

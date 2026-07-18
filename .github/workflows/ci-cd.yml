@@ -1,0 +1,149 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_NAME: ghcr.io/assemblyuz/backend
+  UV_VERSION: "0.9.16"
+
+jobs:
+  test:
+    name: Test backend
+    runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ci-secret-key-that-is-long-enough-for-django-deploy-checks
+      DEBUG: "True"
+      ALLOWED_HOSTS: localhost,127.0.0.1
+      CORS_ALLOWED_ORIGINS: http://localhost:3000
+      CSRF_TRUSTED_ORIGINS: http://localhost:3000
+      DATABASE_URL: sqlite:///ci.sqlite3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Run tests
+        run: uv run --locked python -Wd manage.py test
+
+      - name: Check migrations
+        run: uv run --locked python manage.py makemigrations --check --dry-run
+
+      - name: Run production checks
+        env:
+          DEBUG: "False"
+          ALLOWED_HOSTS: localhost
+          CORS_ALLOWED_ORIGINS: https://localhost
+          CSRF_TRUSTED_ORIGINS: https://localhost
+        run: uv run --locked python manage.py check --deploy --fail-level ERROR
+
+      - name: Collect static files
+        env:
+          DEBUG: "False"
+          ALLOWED_HOSTS: localhost
+          CORS_ALLOWED_ORIGINS: https://localhost
+          CSRF_TRUSTED_ORIGINS: https://localhost
+        run: uv run --locked python manage.py collectstatic --noinput --clear
+
+  build_publish:
+    name: Build and publish backend image
+    runs-on: ubuntu-latest
+    needs: test
+    outputs:
+      image: ${{ steps.image.outputs.image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Export image name
+        id: image
+        run: echo "image=${IMAGE_NAME}:${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    name: Deploy backend
+    needs: build_publish
+    uses: AssemblyUz/infra/.github/workflows/deploy-service.yml@main
+    with:
+      service: api
+      image: ${{ needs.build_publish.outputs.image }}
+    secrets: inherit
+
+  cleanup_ghcr:
+    name: Cleanup old backend images
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Delete stale package versions
+        env:
+          GH_TOKEN: ${{ secrets.GHCR_CLEANUP_TOKEN }}
+          CURRENT_TAG: ${{ github.sha }}
+          ORG: AssemblyUz
+          PACKAGE: backend
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "GHCR_CLEANUP_TOKEN is not set; skipping cleanup."
+            exit 0
+          fi
+
+          versions_url="https://api.github.com/orgs/${ORG}/packages/container/${PACKAGE}/versions?per_page=100"
+          curl -fsSL \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "$versions_url" > versions.json
+
+          jq -r --arg current "$CURRENT_TAG" '
+            .[]
+            | (.metadata.container.tags // []) as $tags
+            | select(($tags | index($current) | not) and ($tags | index("latest") | not))
+            | .id
+          ' versions.json | while read -r version_id; do
+            [ -z "$version_id" ] && continue
+            curl -fsSL -X DELETE \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "https://api.github.com/orgs/${ORG}/packages/container/${PACKAGE}/versions/${version_id}"
+            echo "Deleted package version ${version_id}"
+          done

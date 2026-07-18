@@ -79,3 +79,10 @@ class SiteSettingsAPITests(TestCase):
         socials = response.json()["socials"]
         self.assertEqual(len(socials), 1)
         self.assertEqual(socials[0]["platform"], "telegram")
+
+
+class HealthzTests(TestCase):
+    def test_reports_ok_when_database_is_reachable(self):
+        response = self.client.get(reverse("healthz"))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "ok"})

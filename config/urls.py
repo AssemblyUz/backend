@@ -20,7 +20,7 @@ from catalog.views import (
     ServiceViewSet,
 )
 from contact.views import ContactCreateView
-from core.views import SiteSettingsView
+from core.views import SiteSettingsView, healthz
 from news.views import ArticleViewSet
 from pages.views import AboutContentView, HomeContentView
 
@@ -44,6 +44,7 @@ api_v1 = [
 ]
 
 urlpatterns = [
+    path("healthz/", healthz, name="healthz"),
     path(settings.ADMIN_URL, admin.site.urls),
     # Backs the language switcher in the admin header (django.views.i18n.set_language).
     path("i18n/", include("django.conf.urls.i18n")),
