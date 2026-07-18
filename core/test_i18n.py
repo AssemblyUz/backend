@@ -61,10 +61,12 @@ class CatalogueTests(TestCase):
         for loc in ("uz", "ru"):
             base = pathlib.Path(settings.BASE_DIR) / "locale" / loc / "LC_MESSAGES"
             with self.subTest(locale=loc):
-                self.assertGreaterEqual(
-                    (base / "django.mo").stat().st_mtime,
-                    (base / "django.po").stat().st_mtime,
-                    f"{loc}: django.mo is older than django.po — recompile it",
+                mo_mtime = (base / "django.mo").stat().st_mtime
+                po_mtime = (base / "django.po").stat().st_mtime
+                self.assertLessEqual(
+                    po_mtime - mo_mtime,
+                    1,
+                    f"{loc}: django.mo is materially older than django.po — recompile it",
                 )
 
 

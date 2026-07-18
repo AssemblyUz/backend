@@ -10,6 +10,7 @@
 
 # local database
 db.sqlite3
+*.sqlite3
 
 # collected/served files
 staticfiles/
