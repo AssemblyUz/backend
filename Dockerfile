@@ -50,6 +50,6 @@ ENV WEB_CONCURRENCY=1 \
     GUNICORN_TIMEOUT=30
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
-    CMD python -c "import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings'); import django; django.setup(); from django.db import connection; cursor = connection.cursor(); cursor.execute('SELECT 1')"
+    CMD python manage.py migrate --check
 
 CMD ["sh", "-c", "exec gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers ${WEB_CONCURRENCY} --threads ${GUNICORN_THREADS} --timeout ${GUNICORN_TIMEOUT} --access-logfile - --error-logfile -"]
