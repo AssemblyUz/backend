@@ -1,6 +1,9 @@
 # syntax=docker/dockerfile:1.7
 
 ARG PYTHON_VERSION=3.14.6
+ARG UV_VERSION=0.9.16
+FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
+
 FROM python:${PYTHON_VERSION}-slim AS base
 
 WORKDIR /app
@@ -14,8 +17,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     UV_LINK_MODE=copy
 
 FROM base AS builder
-ARG UV_VERSION=0.9.16
-COPY --from=ghcr.io/astral-sh/uv:${UV_VERSION} /uv /uvx /usr/local/bin/
+COPY --from=uv /uv /uvx /usr/local/bin/
 
 COPY pyproject.toml uv.lock ./
 RUN --mount=type=cache,target=/root/.cache/uv \
