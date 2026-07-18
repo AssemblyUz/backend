@@ -1,0 +1,6 @@
+# Compiled gettext catalogues are binary. Never let autocrlf rewrite them —
+# a single mangled byte silently breaks every translation in that locale.
+*.mo binary
+
+# .po files are text, but must stay UTF-8 with LF so msgfmt/polib agree.
+*.po text eol=lf

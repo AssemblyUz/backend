@@ -1,0 +1,26 @@
+# virtualenv
+.venv/
+
+# secrets — never commit
+.env
+
+# ...but the template must be tracked. The repo root ignores `.env*`, so it has
+# to be re-included explicitly here.
+!.env.example
+
+# local database
+db.sqlite3
+
+# collected/served files
+staticfiles/
+media/
+
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# migration artifact produced by seed/export_frontend_data.mjs
+seed/content.json

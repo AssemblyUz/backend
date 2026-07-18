@@ -1,0 +1,56 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% comment %}
+Skins the admin to match the public website. `extrastyle` is loaded after
+base.css and dark_mode.css, so assembly-admin.css can override their variables.
+{% endcomment %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'admin/css/assembly-admin.css' %}">
+{% endblock %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Assembly') }}{% endblock %}
+
+{% comment %}
+The language switcher lives in `branding`, not `nav-global` or `usertools`:
+admin/login.html overrides both of those to empty, and an editor who cannot read
+English needs the switcher precisely on the page where they log in.
+
+It posts to django.views.i18n.set_language, which stores the choice in the
+session and redirects back to `next`.
+{% endcomment %}
+{% block branding %}
+<div id="site-name">
+  <a href="{% url 'admin:index' %}" class="assembly-brand">
+    {% comment %}Colour logo on the light theme, white on dark — the same swap the site makes.{% endcomment %}
+    <img src="{% static 'admin/img/logo.png' %}"
+         alt="{% translate 'Uzbekistan Economy Assembly' %}"
+         class="assembly-logo assembly-logo-light">
+    <img src="{% static 'admin/img/logo-white.png' %}"
+         alt="{% translate 'Uzbekistan Economy Assembly' %}"
+         class="assembly-logo assembly-logo-dark">
+    <span class="assembly-wordmark">
+      <strong>Assembly</strong>
+      <span>{% translate "Control panel" %}</span>
+    </span>
+  </a>
+</div>
+
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+<form action="{% url 'set_language' %}" method="post" class="assembly-lang">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  {% for code, name in AVAILABLE_LANGUAGES %}
+    <button type="submit"
+            name="language"
+            value="{{ code }}"
+            title="{{ name }}"
+            lang="{{ code }}"
+            class="assembly-lang-btn{% if code == CURRENT_LANGUAGE %} is-active{% endif %}"
+            {% if code == CURRENT_LANGUAGE %}aria-current="true"{% endif %}>{{ code|upper }}</button>
+  {% endfor %}
+</form>
+{% endblock %}

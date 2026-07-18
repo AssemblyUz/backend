@@ -1,0 +1,561 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: assembly-backend 1.0\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Assembly control panel"
+msgstr "Панель управления Ассамблеи"
+
+msgid "Assembly"
+msgstr "Ассамблея"
+
+msgid "Website content"
+msgstr "Контент сайта"
+
+msgid "Control panel"
+msgstr "Панель управления"
+
+msgid "Site"
+msgstr "Сайт"
+
+msgid "Pages"
+msgstr "Страницы"
+
+msgid "Catalog"
+msgstr "Каталог"
+
+msgid "News"
+msgstr "Новости"
+
+msgid "Contact"
+msgstr "Контакты"
+
+msgid "Site settings"
+msgstr "Настройки сайта"
+
+msgid "Social link"
+msgstr "Ссылка на соцсеть"
+
+msgid "Social links"
+msgstr "Ссылки на соцсети"
+
+msgid "Home page content"
+msgstr "Контент главной страницы"
+
+msgid "About page content"
+msgstr "Контент страницы «О нас»"
+
+msgid "Stat"
+msgstr "Показатель"
+
+msgid "Stats"
+msgstr "Показатели"
+
+msgid "Highlight"
+msgstr "Ключевая цифра"
+
+msgid "Highlights"
+msgstr "Ключевые цифры"
+
+msgid "Strategic role"
+msgstr "Стратегическая роль"
+
+msgid "Strategic roles"
+msgstr "Стратегические роли"
+
+msgid "Value"
+msgstr "Ценность"
+
+msgid "Values"
+msgstr "Ценности"
+
+msgid "Direction"
+msgstr "Направление"
+
+msgid "Directions"
+msgstr "Направления"
+
+msgid "Architecture node"
+msgstr "Узел архитектуры"
+
+msgid "Architecture nodes"
+msgstr "Узлы архитектуры"
+
+msgid "Mechanism step"
+msgstr "Шаг механизма"
+
+msgid "Mechanism steps"
+msgstr "Шаги механизма"
+
+msgid "Functional block"
+msgstr "Функциональный блок"
+
+msgid "Functional blocks"
+msgstr "Функциональные блоки"
+
+msgid "Media feature"
+msgstr "Медиавозможность"
+
+msgid "Media features"
+msgstr "Медиавозможности"
+
+msgid "Stakeholder value"
+msgstr "Ценность для стороны"
+
+msgid "Stakeholder values"
+msgstr "Ценности для сторон"
+
+msgid "Roadmap stage"
+msgstr "Этап дорожной карты"
+
+msgid "Roadmap stages"
+msgstr "Этапы дорожной карты"
+
+msgid "KPI"
+msgstr "KPI"
+
+msgid "KPIs"
+msgstr "KPI"
+
+msgid "Result"
+msgstr "Результат"
+
+msgid "Results"
+msgstr "Результаты"
+
+msgid "Association"
+msgstr "Ассоциация"
+
+msgid "Associations"
+msgstr "Ассоциации"
+
+msgid "Service"
+msgstr "Услуга"
+
+msgid "Services"
+msgstr "Услуги"
+
+msgid "Project"
+msgstr "Проект"
+
+msgid "Projects"
+msgstr "Проекты"
+
+msgid "Partner group"
+msgstr "Группа партнёров"
+
+msgid "Partner groups"
+msgstr "Группы партнёров"
+
+msgid "Partner"
+msgstr "Партнёр"
+
+msgid "Partners"
+msgstr "Партнёры"
+
+msgid "Article"
+msgstr "Статья"
+
+msgid "Articles"
+msgstr "Статьи"
+
+msgid "Submission"
+msgstr "Обращение"
+
+msgid "Submissions"
+msgstr "Обращения"
+
+msgid "Identity"
+msgstr "Идентификация"
+
+msgid "Hero"
+msgstr "Главный блок"
+
+msgid "About band"
+msgstr "Блок «О нас»"
+
+msgid "Section headings"
+msgstr "Заголовки разделов"
+
+msgid "Closing banner"
+msgstr "Финальный баннер"
+
+msgid "Page header"
+msgstr "Заголовок страницы"
+
+msgid "Introduction"
+msgstr "Введение"
+
+msgid "Mission & goal"
+msgstr "Миссия и цель"
+
+msgid "Architecture"
+msgstr "Архитектура"
+
+msgid "Mechanism"
+msgstr "Механизм"
+
+msgid "FR/BR/PR/GR"
+msgstr "FR/BR/PR/GR"
+
+msgid "AI MediaNet"
+msgstr "AI MediaNet"
+
+msgid "Roadmap & KPI"
+msgstr "Дорожная карта и KPI"
+
+msgid "Results & slogan"
+msgstr "Результаты и слоган"
+
+msgid "Field of activity"
+msgstr "Сфера деятельности"
+
+msgid "Publishing"
+msgstr "Публикация"
+
+msgid "Timestamps"
+msgstr "Отметки времени"
+
+msgid "Publish selected articles"
+msgstr "Опубликовать выбранные статьи"
+
+msgid "Unpublish selected articles"
+msgstr "Снять с публикации выбранные статьи"
+
+msgid "Mark selected as handled"
+msgstr "Отметить выбранные как обработанные"
+
+msgid "Missing translations"
+msgstr "Отсутствующие переводы"
+
+msgid "Site live"
+msgstr "Сайт запущен"
+
+msgid "Separate paragraphs with a blank line."
+msgstr "Разделяйте абзацы пустой строкой."
+
+msgid "About lead"
+msgstr "Текст «О нас»"
+
+msgid "About title"
+msgstr "Заголовок «О нас»"
+
+msgid "Activity"
+msgstr "Деятельность"
+
+msgid "Address"
+msgstr "Адрес"
+
+msgid "Architecture lead"
+msgstr "Текст архитектуры"
+
+msgid "Architecture note"
+msgstr "Примечание к архитектуре"
+
+msgid "Architecture title"
+msgstr "Заголовок архитектуры"
+
+msgid "Assoc lead"
+msgstr "Текст об ассоциациях"
+
+msgid "Assoc title"
+msgstr "Заголовок «Ассоциации»"
+
+msgid "Blocks lead"
+msgstr "Текст о блоках"
+
+msgid "Blocks title"
+msgstr "Заголовок блоков"
+
+msgid "Body"
+msgstr "Текст"
+
+msgid "Core sub"
+msgstr "Подпись центра"
+
+msgid "Core title"
+msgstr "Заголовок центра"
+
+msgid "Cta banner btn"
+msgstr "Кнопка баннера"
+
+msgid "Cta banner lead"
+msgstr "Текст баннера"
+
+msgid "Cta banner title"
+msgstr "Заголовок баннера"
+
+msgid "Cta primary"
+msgstr "Основная кнопка"
+
+msgid "Cta secondary"
+msgstr "Дополнительная кнопка"
+
+msgid "Desc"
+msgstr "Описание"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Directions lead"
+msgstr "Текст о направлениях"
+
+msgid "Directions title"
+msgstr "Заголовок направлений"
+
+msgid "Excerpt"
+msgstr "Краткое описание"
+
+msgid "Formula"
+msgstr "Формула"
+
+msgid "Formula title"
+msgstr "Заголовок формулы"
+
+msgid "Goal"
+msgstr "Цель"
+
+msgid "Goal note"
+msgstr "Примечание к цели"
+
+msgid "Goal title"
+msgstr "Заголовок цели"
+
+msgid "Hero badge"
+msgstr "Бейдж главного блока"
+
+msgid "Hero lead"
+msgstr "Текст главного блока"
+
+msgid "Hero title"
+msgstr "Заголовок главного блока"
+
+msgid "Intro"
+msgstr "Вступительный текст"
+
+msgid "Intro note"
+msgstr "Примечание к вступлению"
+
+msgid "Intro title"
+msgstr "Заголовок вступления"
+
+msgid "Kpi title"
+msgstr "Заголовок KPI"
+
+msgid "Label"
+msgstr "Подпись"
+
+msgid "Lead"
+msgstr "Подзаголовок"
+
+msgid "Mechanism lead"
+msgstr "Текст механизма"
+
+msgid "Mechanism title"
+msgstr "Заголовок механизма"
+
+msgid "Media lead"
+msgstr "Текст о медиа"
+
+msgid "Media summary"
+msgstr "Сводка по медиа"
+
+msgid "Media tagline"
+msgstr "Слоган медиа"
+
+msgid "Media title"
+msgstr "Заголовок медиа"
+
+msgid "Mission"
+msgstr "Миссия"
+
+msgid "Mission section lead"
+msgstr "Текст раздела миссии"
+
+msgid "Mission section title"
+msgstr "Заголовок раздела миссии"
+
+msgid "Mission title"
+msgstr "Заголовок миссии"
+
+msgid "Motto"
+msgstr "Девиз"
+
+msgid "Name"
+msgstr "Название"
+
+msgid "News lead"
+msgstr "Текст новостей"
+
+msgid "News title"
+msgstr "Заголовок новостей"
+
+msgid "Partners lead"
+msgstr "Текст о партнёрах"
+
+msgid "Partners title"
+msgstr "Заголовок партнёров"
+
+msgid "Period"
+msgstr "Период"
+
+msgid "Principle"
+msgstr "Принцип"
+
+msgid "Projects lead"
+msgstr "Текст о проектах"
+
+msgid "Projects title"
+msgstr "Заголовок проектов"
+
+msgid "Results title"
+msgstr "Заголовок результатов"
+
+msgid "Roadmap lead"
+msgstr "Текст дорожной карты"
+
+msgid "Roadmap title"
+msgstr "Заголовок дорожной карты"
+
+msgid "Role title"
+msgstr "Заголовок роли"
+
+msgid "Services lead"
+msgstr "Текст об услугах"
+
+msgid "Services title"
+msgstr "Заголовок услуг"
+
+msgid "Short"
+msgstr "Краткое название"
+
+msgid "Slogan"
+msgstr "Слоган"
+
+msgid "Sub"
+msgstr "Подпись"
+
+msgid "Tag"
+msgstr "Тег"
+
+msgid "Tagline"
+msgstr "Слоган"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Value lead"
+msgstr "Текст о ценности"
+
+msgid "Value title"
+msgstr "Заголовок ценности"
+
+msgid "Values lead"
+msgstr "Текст о ценностях"
+
+msgid "Values title"
+msgstr "Заголовок ценностей"
+
+msgid "Chairman"
+msgstr "Председатель"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Created at"
+msgstr "Создано"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Group"
+msgstr "Группа"
+
+msgid "Icon"
+msgstr "Иконка"
+
+msgid "Ip address"
+msgstr "IP-адрес"
+
+msgid "Is handled"
+msgstr "Обработано"
+
+msgid "Is published"
+msgstr "Опубликовано"
+
+msgid "Locale"
+msgstr "Язык"
+
+msgid "Message"
+msgstr "Сообщение"
+
+msgid "Order"
+msgstr "Порядок"
+
+msgid "Phone"
+msgstr "Телефон"
+
+msgid "Platform"
+msgstr "Платформа"
+
+msgid "Published on"
+msgstr "Дата публикации"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid "Updated at"
+msgstr "Обновлено"
+
+msgid "Url"
+msgstr "Ссылка"
+
+msgid "User agent"
+msgstr "User agent"
+
+msgid "Home"
+msgstr "Начало"
+
+msgid "Action"
+msgstr "Действие"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "History"
+msgstr "История"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Filter"
+msgstr "Фильтр"
+
+msgid "View site"
+msgstr "Открыть сайт"
+
+msgid "Change password"
+msgstr "Изменить пароль"
+
+msgid "Recent actions"
+msgstr "Последние действия"
+
+msgid "My actions"
+msgstr "Мои действия"
+
+msgid "None available"
+msgstr "Недоступно"
+
+msgid "Save and continue editing"
+msgstr "Сохранить и продолжить редактирование"
+
+msgid "Save and add another"
+msgstr "Сохранить и добавить другой объект"

@@ -1,0 +1,645 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: assembly-backend 1.0\n"
+"Language: uz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Assembly control panel"
+msgstr "Assambleya boshqaruv paneli"
+
+msgid "Assembly"
+msgstr "Assambleya"
+
+msgid "Website content"
+msgstr "Sayt kontenti"
+
+msgid "Control panel"
+msgstr "Boshqaruv paneli"
+
+msgid "Site"
+msgstr "Sayt"
+
+msgid "Pages"
+msgstr "Sahifalar"
+
+msgid "Catalog"
+msgstr "Katalog"
+
+msgid "News"
+msgstr "Yangiliklar"
+
+msgid "Contact"
+msgstr "Aloqa"
+
+msgid "Site settings"
+msgstr "Sayt sozlamalari"
+
+msgid "Social link"
+msgstr "Ijtimoiy havola"
+
+msgid "Social links"
+msgstr "Ijtimoiy havolalar"
+
+msgid "Home page content"
+msgstr "Bosh sahifa kontenti"
+
+msgid "About page content"
+msgstr "«Biz haqimizda» sahifasi kontenti"
+
+msgid "Stat"
+msgstr "Ko'rsatkich"
+
+msgid "Stats"
+msgstr "Ko'rsatkichlar"
+
+msgid "Highlight"
+msgstr "Asosiy raqam"
+
+msgid "Highlights"
+msgstr "Asosiy raqamlar"
+
+msgid "Strategic role"
+msgstr "Strategik rol"
+
+msgid "Strategic roles"
+msgstr "Strategik rollar"
+
+msgid "Value"
+msgstr "Qadriyat"
+
+msgid "Values"
+msgstr "Qadriyatlar"
+
+msgid "Direction"
+msgstr "Yo'nalish"
+
+msgid "Directions"
+msgstr "Yo'nalishlar"
+
+msgid "Architecture node"
+msgstr "Arxitektura tuguni"
+
+msgid "Architecture nodes"
+msgstr "Arxitektura tugunlari"
+
+msgid "Mechanism step"
+msgstr "Mexanizm bosqichi"
+
+msgid "Mechanism steps"
+msgstr "Mexanizm bosqichlari"
+
+msgid "Functional block"
+msgstr "Funksional blok"
+
+msgid "Functional blocks"
+msgstr "Funksional bloklar"
+
+msgid "Media feature"
+msgstr "Media imkoniyati"
+
+msgid "Media features"
+msgstr "Media imkoniyatlari"
+
+msgid "Stakeholder value"
+msgstr "Manfaatdor tomon qiymati"
+
+msgid "Stakeholder values"
+msgstr "Manfaatdor tomonlar qiymati"
+
+msgid "Roadmap stage"
+msgstr "Yo'l xaritasi bosqichi"
+
+msgid "Roadmap stages"
+msgstr "Yo'l xaritasi bosqichlari"
+
+msgid "KPI"
+msgstr "KPI"
+
+msgid "KPIs"
+msgstr "KPIlar"
+
+msgid "Result"
+msgstr "Natija"
+
+msgid "Results"
+msgstr "Natijalar"
+
+msgid "Association"
+msgstr "Uyushma"
+
+msgid "Associations"
+msgstr "Uyushmalar"
+
+msgid "Service"
+msgstr "Xizmat"
+
+msgid "Services"
+msgstr "Xizmatlar"
+
+msgid "Project"
+msgstr "Loyiha"
+
+msgid "Projects"
+msgstr "Loyihalar"
+
+msgid "Partner group"
+msgstr "Hamkorlar guruhi"
+
+msgid "Partner groups"
+msgstr "Hamkorlar guruhlari"
+
+msgid "Partner"
+msgstr "Hamkor"
+
+msgid "Partners"
+msgstr "Hamkorlar"
+
+msgid "Article"
+msgstr "Maqola"
+
+msgid "Articles"
+msgstr "Maqolalar"
+
+msgid "Submission"
+msgstr "Murojaat"
+
+msgid "Submissions"
+msgstr "Murojaatlar"
+
+msgid "Identity"
+msgstr "Nomlanish"
+
+msgid "Hero"
+msgstr "Bosh blok"
+
+msgid "About band"
+msgstr "«Biz haqimizda» bloki"
+
+msgid "Section headings"
+msgstr "Bo'lim sarlavhalari"
+
+msgid "Closing banner"
+msgstr "Yakuniy banner"
+
+msgid "Page header"
+msgstr "Sahifa sarlavhasi"
+
+msgid "Introduction"
+msgstr "Kirish"
+
+msgid "Mission & goal"
+msgstr "Missiya va maqsad"
+
+msgid "Architecture"
+msgstr "Arxitektura"
+
+msgid "Mechanism"
+msgstr "Mexanizm"
+
+msgid "FR/BR/PR/GR"
+msgstr "FR/BR/PR/GR"
+
+msgid "AI MediaNet"
+msgstr "AI MediaNet"
+
+msgid "Roadmap & KPI"
+msgstr "Yo'l xaritasi va KPI"
+
+msgid "Results & slogan"
+msgstr "Natijalar va shior"
+
+msgid "Field of activity"
+msgstr "Faoliyat yo'nalishi"
+
+msgid "Publishing"
+msgstr "Nashr"
+
+msgid "Timestamps"
+msgstr "Vaqt belgilari"
+
+msgid "Publish selected articles"
+msgstr "Tanlangan maqolalarni nashr qilish"
+
+msgid "Unpublish selected articles"
+msgstr "Tanlangan maqolalarni nashrdan olish"
+
+msgid "Mark selected as handled"
+msgstr "Tanlanganlarni ko'rib chiqilgan deb belgilash"
+
+msgid "Missing translations"
+msgstr "Yetishmayotgan tarjimalar"
+
+msgid "Site live"
+msgstr "Sayt ishga tushgan"
+
+msgid "Separate paragraphs with a blank line."
+msgstr "Xatboshilarni bo'sh satr bilan ajrating."
+
+msgid "About lead"
+msgstr "«Biz haqimizda» matni"
+
+msgid "About title"
+msgstr "«Biz haqimizda» sarlavhasi"
+
+msgid "Activity"
+msgstr "Faoliyati"
+
+msgid "Address"
+msgstr "Manzil"
+
+msgid "Architecture lead"
+msgstr "Arxitektura matni"
+
+msgid "Architecture note"
+msgstr "Arxitektura izohi"
+
+msgid "Architecture title"
+msgstr "Arxitektura sarlavhasi"
+
+msgid "Assoc lead"
+msgstr "Uyushmalar matni"
+
+msgid "Assoc title"
+msgstr "Uyushmalar sarlavhasi"
+
+msgid "Blocks lead"
+msgstr "Bloklar matni"
+
+msgid "Blocks title"
+msgstr "Bloklar sarlavhasi"
+
+msgid "Body"
+msgstr "Matn"
+
+msgid "Core sub"
+msgstr "Markaz izohi"
+
+msgid "Core title"
+msgstr "Markaz sarlavhasi"
+
+msgid "Cta banner btn"
+msgstr "Banner tugmasi"
+
+msgid "Cta banner lead"
+msgstr "Banner matni"
+
+msgid "Cta banner title"
+msgstr "Banner sarlavhasi"
+
+msgid "Cta primary"
+msgstr "Asosiy tugma"
+
+msgid "Cta secondary"
+msgstr "Qo'shimcha tugma"
+
+msgid "Desc"
+msgstr "Tavsif"
+
+msgid "Description"
+msgstr "Tavsif"
+
+msgid "Directions lead"
+msgstr "Yo'nalishlar matni"
+
+msgid "Directions title"
+msgstr "Yo'nalishlar sarlavhasi"
+
+msgid "Excerpt"
+msgstr "Qisqacha"
+
+msgid "Formula"
+msgstr "Formula"
+
+msgid "Formula title"
+msgstr "Formula sarlavhasi"
+
+msgid "Goal"
+msgstr "Maqsad"
+
+msgid "Goal note"
+msgstr "Maqsad izohi"
+
+msgid "Goal title"
+msgstr "Maqsad sarlavhasi"
+
+msgid "Hero badge"
+msgstr "Bosh blok yorlig'i"
+
+msgid "Hero lead"
+msgstr "Bosh blok matni"
+
+msgid "Hero title"
+msgstr "Bosh blok sarlavhasi"
+
+msgid "Intro"
+msgstr "Kirish matni"
+
+msgid "Intro note"
+msgstr "Kirish izohi"
+
+msgid "Intro title"
+msgstr "Kirish sarlavhasi"
+
+msgid "Kpi title"
+msgstr "KPI sarlavhasi"
+
+msgid "Label"
+msgstr "Yorliq"
+
+msgid "Lead"
+msgstr "Kirish matni"
+
+msgid "Mechanism lead"
+msgstr "Mexanizm matni"
+
+msgid "Mechanism title"
+msgstr "Mexanizm sarlavhasi"
+
+msgid "Media lead"
+msgstr "Media matni"
+
+msgid "Media summary"
+msgstr "Media xulosasi"
+
+msgid "Media tagline"
+msgstr "Media shiori"
+
+msgid "Media title"
+msgstr "Media sarlavhasi"
+
+msgid "Mission"
+msgstr "Missiya"
+
+msgid "Mission section lead"
+msgstr "Missiya bo'limi matni"
+
+msgid "Mission section title"
+msgstr "Missiya bo'limi sarlavhasi"
+
+msgid "Mission title"
+msgstr "Missiya sarlavhasi"
+
+msgid "Motto"
+msgstr "Shior"
+
+msgid "Name"
+msgstr "Nomi"
+
+msgid "News lead"
+msgstr "Yangiliklar matni"
+
+msgid "News title"
+msgstr "Yangiliklar sarlavhasi"
+
+msgid "Partners lead"
+msgstr "Hamkorlar matni"
+
+msgid "Partners title"
+msgstr "Hamkorlar sarlavhasi"
+
+msgid "Period"
+msgstr "Davr"
+
+msgid "Principle"
+msgstr "Tamoyil"
+
+msgid "Projects lead"
+msgstr "Loyihalar matni"
+
+msgid "Projects title"
+msgstr "Loyihalar sarlavhasi"
+
+msgid "Results title"
+msgstr "Natijalar sarlavhasi"
+
+msgid "Roadmap lead"
+msgstr "Yo'l xaritasi matni"
+
+msgid "Roadmap title"
+msgstr "Yo'l xaritasi sarlavhasi"
+
+msgid "Role title"
+msgstr "Rol sarlavhasi"
+
+msgid "Services lead"
+msgstr "Xizmatlar matni"
+
+msgid "Services title"
+msgstr "Xizmatlar sarlavhasi"
+
+msgid "Short"
+msgstr "Qisqa nomi"
+
+msgid "Slogan"
+msgstr "Shior"
+
+msgid "Sub"
+msgstr "Izoh"
+
+msgid "Tag"
+msgstr "Teg"
+
+msgid "Tagline"
+msgstr "Shior"
+
+msgid "Text"
+msgstr "Matn"
+
+msgid "Title"
+msgstr "Sarlavha"
+
+msgid "Value lead"
+msgstr "Qiymat matni"
+
+msgid "Value title"
+msgstr "Qiymat sarlavhasi"
+
+msgid "Values lead"
+msgstr "Qadriyatlar matni"
+
+msgid "Values title"
+msgstr "Qadriyatlar sarlavhasi"
+
+msgid "Chairman"
+msgstr "Rais"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Created at"
+msgstr "Yaratilgan vaqti"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Group"
+msgstr "Guruh"
+
+msgid "Icon"
+msgstr "Belgi"
+
+msgid "Ip address"
+msgstr "IP manzil"
+
+msgid "Is handled"
+msgstr "Ko'rib chiqilgan"
+
+msgid "Is published"
+msgstr "Nashr qilingan"
+
+msgid "Locale"
+msgstr "Til"
+
+msgid "Message"
+msgstr "Xabar"
+
+msgid "Order"
+msgstr "Tartib"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Platform"
+msgstr "Platforma"
+
+msgid "Published on"
+msgstr "Nashr sanasi"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid "Updated at"
+msgstr "Yangilangan vaqti"
+
+msgid "Url"
+msgstr "Havola"
+
+msgid "User agent"
+msgstr "Foydalanuvchi agenti"
+
+msgid "Home"
+msgstr "Bosh sahifa"
+
+msgid "Action"
+msgstr "Amal"
+
+msgid "Actions"
+msgstr "Amallar"
+
+msgid "History"
+msgstr "Tarix"
+
+msgid "Search"
+msgstr "Qidirish"
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "View site"
+msgstr "Saytni ko'rish"
+
+msgid "Change password"
+msgstr "Parolni o'zgartirish"
+
+msgid "Recent actions"
+msgstr "So'nggi amallar"
+
+msgid "My actions"
+msgstr "Mening amallarim"
+
+msgid "None available"
+msgstr "Mavjud emas"
+
+msgid "Save and continue editing"
+msgstr "Saqlash va tahrirni davom ettirish"
+
+msgid "Save and add another"
+msgstr "Saqlash va yana qo'shish"
+
+msgid "Log in"
+msgstr "Kirish"
+
+msgid "Username"
+msgstr "Foydalanuvchi nomi"
+
+msgid "Django administration"
+msgstr "Boshqaruv paneli"
+
+msgid "Site administration"
+msgstr "Sayt boshqaruvi"
+
+msgid "Breadcrumbs"
+msgstr "Yo'l ko'rsatkichi"
+
+msgid "Go"
+msgstr "Bajarish"
+
+msgid "Save as new"
+msgstr "Yangi sifatida saqlash"
+
+msgid "Select %s to change"
+msgstr "%s — o'zgartirish uchun tanlang"
+
+msgid "user"
+msgstr "foydalanuvchi"
+
+msgid "users"
+msgstr "foydalanuvchilar"
+
+msgid "group"
+msgstr "guruh"
+
+msgid "groups"
+msgstr "guruhlar"
+
+msgid "Toggle theme (current theme: auto)"
+msgstr "Mavzuni almashtirish (joriy mavzu: avto)"
+
+msgid "Toggle theme (current theme: light)"
+msgstr "Mavzuni almashtirish (joriy mavzu: yorug')"
+
+msgid "Toggle theme (current theme: dark)"
+msgstr "Mavzuni almashtirish (joriy mavzu: tungi)"
+
+msgid "username"
+msgstr "foydalanuvchi nomi"
+
+msgid "email address"
+msgstr "elektron pochta manzili"
+
+msgid "first name"
+msgstr "ism"
+
+msgid "last name"
+msgstr "familiya"
+
+msgid "active"
+msgstr "faol"
+
+msgid "staff status"
+msgstr "xodim maqomi"
+
+msgid "superuser status"
+msgstr "superfoydalanuvchi maqomi"
+
+msgid "user permissions"
+msgstr "foydalanuvchi ruxsatlari"
+
+msgid "last login"
+msgstr "oxirgi kirish"
+
+msgid "date joined"
+msgstr "qo'shilgan sana"
+
+msgid "Personal info"
+msgstr "Shaxsiy ma'lumotlar"
+
+msgid "Permissions"
+msgstr "Ruxsatlar"
+
+msgid "Important dates"
+msgstr "Muhim sanalar"

@@ -1,0 +1,500 @@
+/*
+ * Assembly control panel theme.
+ *
+ * Re-skins the Django admin with the public website's design tokens, taken
+ * verbatim from src/app/globals.css. Loaded from the `extrastyle` block, which
+ * comes after base.css and dark_mode.css, so these declarations win.
+ *
+ * The selector structure mirrors Django's own so its light/dark toggle keeps
+ * working: `:root` is the light default, the media query handles "auto" on a
+ * dark OS, and `html[data-theme="..."]` handles an explicit user choice. The
+ * attribute selectors outrank `:root`, so forcing light on a dark OS still wins.
+ */
+
+/* ---------------------------------------------------------------- tokens */
+
+html[data-theme="light"],
+:root {
+  --site-background: #f8fafc;
+  --site-surface: #ffffff;
+  --site-card: #ffffff;
+  --site-foreground: #0f172a;
+  --site-muted: #64748b;
+  --site-border: #e2e8f0;
+  --site-brand: #4f46e5;
+  --site-brand-strong: #4338ca;
+  --site-brand-fg: #ffffff;
+  --site-accent: #0ea5e9;
+  --site-shadow: 0 1px 2px rgb(15 23 42 / 6%), 0 8px 24px -12px rgb(15 23 42 / 12%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --site-background: #070b16;
+    --site-surface: #0d1424;
+    --site-card: #0f172a;
+    --site-foreground: #e5e9f2;
+    --site-muted: #94a3b8;
+    --site-border: #1e293b;
+    --site-brand: #818cf8;
+    --site-brand-strong: #a5b4fc;
+    --site-brand-fg: #0b1020;
+    --site-accent: #38bdf8;
+    --site-shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 24px -12px rgb(0 0 0 / 60%);
+  }
+}
+
+html[data-theme="dark"] {
+  --site-background: #070b16;
+  --site-surface: #0d1424;
+  --site-card: #0f172a;
+  --site-foreground: #e5e9f2;
+  --site-muted: #94a3b8;
+  --site-border: #1e293b;
+  --site-brand: #818cf8;
+  --site-brand-strong: #a5b4fc;
+  --site-brand-fg: #0b1020;
+  --site-accent: #38bdf8;
+  --site-shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 24px -12px rgb(0 0 0 / 60%);
+}
+
+/* -------------------------------------------- map onto Django's variables */
+
+html[data-theme="light"],
+html[data-theme="dark"],
+:root {
+  --primary: var(--site-brand);
+  --primary-fg: var(--site-brand-fg);
+  --secondary: var(--site-brand);
+  --accent: var(--site-accent);
+
+  --body-fg: var(--site-foreground);
+  --body-bg: var(--site-background);
+  --body-quiet-color: var(--site-muted);
+  --body-medium-color: var(--site-muted);
+  --body-loud-color: var(--site-foreground);
+
+  /* The site header is a light surface with a hairline border, not a colour
+     slab — mirror that instead of Django's dark green bar. */
+  --header-bg: var(--site-surface);
+  --header-color: var(--site-muted);
+  --header-branding-color: var(--site-foreground);
+  --header-link-color: var(--site-foreground);
+
+  --breadcrumbs-bg: var(--site-surface);
+  --breadcrumbs-fg: var(--site-muted);
+  --breadcrumbs-link-fg: var(--site-brand);
+
+  --link-fg: var(--site-brand);
+  --link-hover-color: var(--site-brand-strong);
+  --link-selected-fg: var(--site-brand-strong);
+
+  --hairline-color: var(--site-border);
+  --border-color: var(--site-border);
+
+  --button-bg: var(--site-brand);
+  --button-fg: var(--site-brand-fg);
+  --button-hover-bg: var(--site-brand-strong);
+  --default-button-bg: var(--site-brand);
+  --default-button-hover-bg: var(--site-brand-strong);
+  --close-button-bg: var(--site-muted);
+  --close-button-hover-bg: var(--site-foreground);
+
+  --darkened-bg: var(--site-surface);
+  --selected-bg: color-mix(in oklab, var(--site-brand) 8%, transparent);
+  --selected-row: color-mix(in oklab, var(--site-brand) 12%, transparent);
+
+  --object-tools-bg: var(--site-foreground);
+  --object-tools-fg: var(--site-background);
+  --object-tools-hover-bg: var(--site-brand);
+
+  /* Inter matches the site. No webfont request is made: if the OS does not
+     have Inter, the system UI face is used, which is visually close. */
+  --font-family-primary: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ------------------------------------------------------------- structure */
+
+body {
+  background: var(--site-background);
+  color: var(--site-foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--site-brand);
+  color: var(--site-brand-fg);
+}
+
+/* Header: sticky hairline surface, like the site's <header>. */
+#header {
+  border-bottom: 1px solid var(--site-border);
+  box-shadow: none;
+  padding: 12px 24px;
+  align-items: center;
+}
+
+#branding a:link,
+#branding a:visited {
+  color: var(--site-foreground);
+}
+
+.assembly-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.assembly-logo {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+/* Colour logo on light, white logo on dark — the same swap the site makes. */
+html[data-theme="dark"] .assembly-logo-light,
+html[data-theme="light"] .assembly-logo-dark {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .assembly-logo-light {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme="dark"]) .assembly-logo-dark {
+    display: none;
+  }
+}
+
+.assembly-wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.assembly-wordmark strong {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: var(--site-foreground);
+}
+
+.assembly-wordmark span {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--site-brand);
+}
+
+/* Language switcher: a segmented control, like the site's language menu.
+   It sits inside #branding (see base_site.html for why), so #branding becomes
+   a flex row holding the logo and the switcher side by side. */
+#branding {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.assembly-lang {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--site-border);
+  border-radius: 10px;
+  background: var(--site-background);
+}
+
+.assembly-lang-btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  color: var(--site-muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 5px 10px;
+  border-radius: 7px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.assembly-lang-btn:hover {
+  color: var(--site-foreground);
+  background: color-mix(in oklab, var(--site-brand) 10%, transparent);
+}
+
+.assembly-lang-btn.is-active {
+  background: var(--site-brand);
+  color: var(--site-brand-fg);
+}
+
+.assembly-lang-btn:focus-visible {
+  outline: 2px solid var(--site-brand);
+  outline-offset: 1px;
+}
+
+/* On the login page the header is centred and narrow, so stack the switcher
+   under the logo rather than squeezing it alongside. */
+body.login #branding {
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Breadcrumbs: quiet strip, not a coloured band. */
+div.breadcrumbs {
+  background: var(--site-background);
+  border-bottom: 1px solid var(--site-border);
+  color: var(--site-muted);
+  padding: 12px 24px;
+}
+
+/* Cards. The site uses rounded surfaces with a hairline border and no heavy
+   chrome — apply that to every admin module. */
+.module,
+.dashboard #content .module,
+#changelist,
+.inline-group,
+#content-related .module {
+  background: var(--site-card);
+  border: 1px solid var(--site-border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--site-shadow);
+}
+
+.module caption,
+.inline-group h2,
+#content-related .module h2 {
+  background: transparent;
+  color: var(--site-foreground);
+  border-bottom: 1px solid var(--site-border);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  padding: 14px 16px;
+}
+
+.module h2 {
+  background: transparent;
+  color: var(--site-foreground);
+  border-bottom: 1px solid var(--site-border);
+  text-transform: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 16px;
+}
+
+/* Tables */
+thead th {
+  background: var(--site-surface);
+  color: var(--site-muted);
+  border-bottom: 1px solid var(--site-border);
+  font-weight: 600;
+}
+
+tbody tr:hover {
+  background: color-mix(in oklab, var(--site-brand) 5%, transparent);
+}
+
+/* Buttons: the site's rounded-xl pill. */
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.button.default,
+input[type="submit"].default,
+.submit-row input.default {
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* Secondary buttons read as the site's bordered surface button. */
+.object-tools a:link,
+.object-tools a:visited {
+  border-radius: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.submit-row {
+  background: var(--site-surface);
+  border: 1px solid var(--site-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+
+.deletelink,
+.submit-row a.deletelink {
+  border-radius: 10px;
+  background: #dc2626;
+  color: #fff;
+}
+
+.submit-row a.deletelink:hover {
+  background: #b91c1c;
+}
+
+/* Inputs: match the site's rounded field with a brand focus ring. */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+input[type="tel"],
+textarea,
+select,
+.vTextField {
+  background: var(--site-card);
+  color: var(--site-foreground);
+  border: 1px solid var(--site-border);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus,
+.vTextField:focus {
+  border-color: var(--site-brand);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--site-brand) 30%, transparent);
+  outline: none;
+}
+
+/* Sidebar */
+#nav-sidebar {
+  background: var(--site-surface);
+  border-right: 1px solid var(--site-border);
+}
+
+#nav-sidebar .module th {
+  background: transparent;
+}
+
+.main > #nav-sidebar + .content {
+  max-width: none;
+}
+
+#nav-filter {
+  background: var(--site-card);
+  border: 1px solid var(--site-border);
+  border-radius: 10px;
+  color: var(--site-foreground);
+}
+
+/* Login page: a centred card, like the site's surface panels. */
+body.login #container {
+  background: var(--site-card);
+  border: 1px solid var(--site-border);
+  border-radius: 20px;
+  box-shadow: var(--site-shadow);
+  overflow: hidden;
+}
+
+body.login #header {
+  border-bottom: 1px solid var(--site-border);
+  border-radius: 0;
+  justify-content: center;
+}
+
+body.login .assembly-brand {
+  justify-content: center;
+}
+
+/* #container is already the card, so the submit row must not draw a second
+   one — otherwise an empty bordered box floats above the button. */
+body.login .submit-row {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 8px 0 0;
+  margin: 0;
+}
+
+body.login .submit-row input {
+  width: 100%;
+  margin: 0;
+}
+
+/* Action icons.
+ *
+ * Django ships icon-addlink.svg, icon-changelink.svg and icon-viewlink.svg with
+ * green / amber / blue fills baked in, which fight the indigo palette. Drop the
+ * background image and re-draw each icon as a mask filled with `currentColor`,
+ * so it takes the link's colour and follows the theme automatically. */
+.addlink,
+.changelink,
+.viewlink {
+  position: relative;
+  background-image: none;
+  padding-left: 18px;
+}
+
+.addlink::before,
+.changelink::before,
+.viewlink::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  translate: 0 -50%;
+  width: 14px;
+  height: 14px;
+  background-color: currentColor;
+  -webkit-mask: var(--admin-icon) no-repeat center / contain;
+  mask: var(--admin-icon) no-repeat center / contain;
+}
+
+.addlink { --admin-icon: url("../img/icon-addlink.svg"); }
+.changelink { --admin-icon: url("../img/icon-changelink.svg"); }
+.viewlink { --admin-icon: url("../img/icon-viewlink.svg"); }
+
+/* The object-tools "Add" button is a different asset (tooltag-add.svg, already
+   white and right-aligned). Leave it alone, or it renders two plus signs. */
+.object-tools a.addlink {
+  background-image: url("../img/tooltag-add.svg");
+  padding-left: 12px;
+  padding-right: 26px;
+}
+
+.object-tools a.addlink::before {
+  content: none;
+}
+
+/* The submit-row delete control is a red button, not an icon link — leave it. */
+.submit-row a.deletelink::before {
+  content: none;
+}
+
+/* Messages */
+ul.messagelist li {
+  border-radius: 10px;
+}
+
+/* Pagination and quiet text */
+.paginator {
+  border-top: 1px solid var(--site-border);
+  background: transparent;
+}
+
+.help,
+p.help,
+div.help {
+  color: var(--site-muted);
+}

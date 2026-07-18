@@ -1,0 +1,37 @@
+# Local Postgres + the Django API. Secrets come from backend/.env, which is
+# gitignored — this file must never contain a real credential.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-assembly}
+      POSTGRES_USER: ${POSTGRES_USER:-assembly}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in backend/.env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-assembly}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  api:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-assembly}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-assembly}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - static_files:/app/staticfiles
+      - media_files:/app/media
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:
+  static_files:
+  media_files:
