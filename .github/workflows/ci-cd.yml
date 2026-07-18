@@ -100,19 +100,40 @@ jobs:
         id: image
         run: echo "image=${IMAGE_NAME}:${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
 
-  deploy:
-    name: Deploy backend
+  update_infra:
+    name: Update backend desired image
     needs: build_publish
-    uses: AssemblyUz/infra/.github/workflows/deploy-service.yml@main
-    with:
-      service: api
-      image: ${{ needs.build_publish.outputs.image }}
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout infra
+        uses: actions/checkout@v6
+        with:
+          repository: AssemblyUz/infra
+          ref: main
+          token: ${{ secrets.INFRA_WRITE_TOKEN }}
+          path: infra
+
+      - name: Update backend image file
+        working-directory: infra
+        env:
+          IMAGE: ${{ needs.build_publish.outputs.image }}
+        run: |
+          mkdir -p deploy/backend
+          printf '%s\n' "$IMAGE" > deploy/backend/image.txt
+          git config user.name "assembly-deploy-bot"
+          git config user.email "assembly-deploy-bot@users.noreply.github.com"
+          git add deploy/backend/image.txt
+          if git diff --cached --quiet; then
+            echo "Backend desired image is already $IMAGE"
+            exit 0
+          fi
+          git commit -m "Deploy backend ${IMAGE##*:}"
+          git push origin main
 
   cleanup_ghcr:
     name: Cleanup old backend images
     runs-on: ubuntu-latest
-    needs: deploy
+    needs: update_infra
     steps:
       - name: Delete stale package versions
         env:
