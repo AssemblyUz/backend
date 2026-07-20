@@ -143,6 +143,17 @@ if not DEBUG:
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# Whether Django itself serves uploaded files in production. Left on so a
+# proxy that is not yet routing /media/ does not silently 404 every photo;
+# turn it off once the proxy is confirmed, so uploads never touch the worker.
+SERVE_MEDIA = env.bool("SERVE_MEDIA", default=True)
+
+# Public origin for uploaded photos, e.g. https://assembly.uz. The API returns
+# absolute media URLs because the frontend fetches server-side over an internal
+# address that a browser cannot resolve. Blank keeps the relative path, which
+# is what local development wants.
+MEDIA_BASE_URL = env("MEDIA_BASE_URL", default="")
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # --- Django REST Framework -------------------------------------------------

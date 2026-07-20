@@ -9,6 +9,8 @@ dependencies = [
     "django-environ==0.14.0",
     "djangorestframework==3.17.1",
     "gunicorn==26.0.0",
+    # Required by ImageField: Django's system check fields.E210 fails without it.
+    "Pillow==12.1.0",
     "psycopg[binary]==3.3.4",
     "whitenoise==6.12.0",
 ]
