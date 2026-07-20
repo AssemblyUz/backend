@@ -118,7 +118,7 @@ class Command(BaseCommand):
             for field, value in tr(messages, "site", key).items():
                 setattr(site, field, value)
         for field, value in tr(messages, "footer", "address").items():
-            setattr(site, field.replace("address", "address"), value)
+            setattr(site, field, value)
         site.email = messages["uz"]["footer"]["email"]
         site.phone = messages["uz"]["footer"]["phone"]
         site.save()
