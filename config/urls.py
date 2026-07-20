@@ -50,6 +50,9 @@ urlpatterns = [
     # Backs the language switcher in the admin header (django.views.i18n.set_language).
     path("i18n/", include("django.conf.urls.i18n")),
     path("api/v1/", include((api_v1, "api"), namespace="v1")),
+    # Authenticated editor panel. Separate from /api/v1/ so the public API
+    # stays anonymous and cacheable.
+    path("api/admin/", include(("adminapi.urls", "adminapi"), namespace="panel")),
 ]
 
 if settings.DEBUG:
