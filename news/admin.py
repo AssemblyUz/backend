@@ -1,6 +1,7 @@
 """Admin for news articles."""
 
 from django.contrib import admin
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from core.admin import LocalizedLabelsMixin
@@ -38,12 +39,31 @@ class ArticleAdmin(LocalizedLabelsMixin, admin.ModelAdmin):
         missing = obj.missing_translations()
         return ", ".join(missing).upper() if missing else "—"
 
+    def _set_published(self, request, queryset, *, published: bool, message):
+        """
+        Bulk publish/unpublish.
+
+        Uses `.update()` for the flag but stamps `updated_at` alongside it —
+        `.update()` bypasses `save()`, so `auto_now` never fires and the
+        timestamp would otherwise still show the last manual edit.
+        """
+        updated = queryset.update(is_published=published, updated_at=timezone.now())
+        self.message_user(request, message % {"count": updated})
+
     @admin.action(description=_("Publish selected articles"))
     def publish(self, request, queryset):
-        updated = queryset.update(is_published=True)
-        self.message_user(request, f"{updated} article(s) published.")
+        self._set_published(
+            request,
+            queryset,
+            published=True,
+            message=_("%(count)d article(s) published."),
+        )
 
     @admin.action(description=_("Unpublish selected articles"))
     def unpublish(self, request, queryset):
-        updated = queryset.update(is_published=False)
-        self.message_user(request, f"{updated} article(s) unpublished.")
+        self._set_published(
+            request,
+            queryset,
+            published=False,
+            message=_("%(count)d article(s) unpublished."),
+        )
