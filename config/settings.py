@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "catalog",
     "news",
     "contact",
+    "adminapi",
 ]
 
 MIDDLEWARE = [
@@ -162,11 +163,22 @@ REST_FRAMEWORK = {
     # Public content is read-only for anonymous callers. The single write
     # endpoint (contact) is throttled by scope.
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
+    # Stated explicitly rather than left to DRF's default. The control panel
+    # signs in with Django's own session cookie, which SessionAuthentication
+    # also CSRF-protects on every unsafe method. BasicAuthentication is
+    # deliberately absent: it would accept credentials over a plain header on
+    # every request, bypassing both the session and the login throttle.
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "DEFAULT_THROTTLE_CLASSES": ["rest_framework.throttling.ScopedRateThrottle"],
     "DEFAULT_THROTTLE_RATES": {
         # Generous for a human, useless for a spam script.
         "contact": env("CONTACT_THROTTLE_RATE", default="5/hour"),
+        # Password guessing. Counted per IP for anonymous callers, which is who
+        # is hitting the login endpoint by definition.
+        "admin_login": env("ADMIN_LOGIN_THROTTLE_RATE", default="10/hour"),
     },
 }
 
