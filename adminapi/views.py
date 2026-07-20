@@ -38,6 +38,10 @@ def describe(user) -> dict:
         "name": user.get_full_name() or user.get_username(),
         "email": user.email,
         "isSuperuser": user.is_superuser,
+        # Drives which controls the panel renders. Without canCreate the panel
+        # would show "New article" to someone who lacks the permission, and
+        # they would discover it only as a 403 after filling in the whole form.
+        "canCreate": user.has_perm("news.add_article"),
         "canPublish": user.has_perm("news.change_article"),
         "canDelete": user.has_perm("news.delete_article"),
         "canUploadPhotos": user.has_perm("news.add_articleimage"),
