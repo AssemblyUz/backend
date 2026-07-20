@@ -6,6 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 from core.models import LOCALES
 
+from .validators import validate_image_upload
+
 
 class PublishedArticleManager(models.Manager):
     """Only articles an editor has published, and not dated in the future."""
@@ -78,3 +80,46 @@ class Article(models.Model):
 
     def __str__(self) -> str:
         return self.title_uz or self.title_en or self.slug
+
+
+class ArticleImage(models.Model):
+    """
+    A photo attached to an article.
+
+    The first image doubles as the article's cover — there is no separate cover
+    field, so an editor reorders rather than re-uploading. `size` is the layout
+    the editor picked, not a stored resolution: the file is kept at its original
+    dimensions and the frontend renders it at the chosen width.
+    """
+
+    MAX_PER_ARTICLE = 10
+
+    class Size(models.TextChoices):
+        FULL = "full", _("Full width")
+        HALF = "half", _("Half width")
+        THUMB = "thumb", _("Thumbnail")
+
+    article = models.ForeignKey(Article, related_name="images", on_delete=models.CASCADE)
+    image = models.ImageField(
+        upload_to="news/%Y/%m/",
+        validators=[validate_image_upload],
+        help_text="JPEG, PNG, WebP or AVIF, up to 5 MB.",
+    )
+    size = models.CharField(
+        max_length=8,
+        choices=Size.choices,
+        default=Size.FULL,
+        help_text="How wide this photo renders in the article.",
+    )
+    alt_uz = models.CharField(max_length=200, blank=True, default="")
+    alt_ru = models.CharField(max_length=200, blank=True, default="")
+    alt_en = models.CharField(max_length=200, blank=True, default="")
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = _("Photo")
+        verbose_name_plural = _("Photos")
+        ordering = ["order", "pk"]
+
+    def __str__(self) -> str:
+        return f"{self.article.slug} #{self.order}"

@@ -22,7 +22,15 @@ class EditorGroupExistsTests(TestCase):
         group = Group.objects.get(name=GROUP_NAME)
         self.assertGreater(group.permissions.count(), 0)
 
-    def test_can_manage_articles(self):
+    def test_can_manage_articles_and_their_photos(self):
+        """
+        Full CRUD on both news models.
+
+        `articleimage` appearing here without anyone editing this file is the
+        sync working as intended: a data migration would have frozen the group
+        at the four article permissions and left editors unable to add photos on
+        any database that was upgraded rather than rebuilt.
+        """
         group = Group.objects.get(name=GROUP_NAME)
         codenames = set(
             group.permissions.filter(content_type__app_label="news").values_list(
@@ -31,7 +39,11 @@ class EditorGroupExistsTests(TestCase):
         )
         self.assertEqual(
             codenames,
-            {"add_article", "change_article", "delete_article", "view_article"},
+            {
+                "add_article", "change_article", "delete_article", "view_article",
+                "add_articleimage", "change_articleimage",
+                "delete_articleimage", "view_articleimage",
+            },
         )
 
     def test_cannot_manage_users_or_groups(self):

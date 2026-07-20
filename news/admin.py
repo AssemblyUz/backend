@@ -1,16 +1,58 @@
 """Admin for news articles."""
 
 from django.contrib import admin
+from django.core.exceptions import ValidationError
+from django.forms import BaseInlineFormSet
 from django.utils import timezone
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from core.admin import LocalizedLabelsMixin
 
-from .models import Article
+from .models import Article, ArticleImage
+
+
+class ArticleImageFormSet(BaseInlineFormSet):
+    """Enforces the photo cap in the admin; the API enforces it separately."""
+
+    def clean(self):
+        super().clean()
+        kept = sum(
+            1
+            for form in self.forms
+            if form.cleaned_data
+            and not form.cleaned_data.get("DELETE")
+            and form.cleaned_data.get("image")
+        )
+        if kept > ArticleImage.MAX_PER_ARTICLE:
+            raise ValidationError(
+                _("An article can have at most %(limit)d photos; this has %(count)d."),
+                params={"limit": ArticleImage.MAX_PER_ARTICLE, "count": kept},
+            )
+
+
+class ArticleImageInline(admin.TabularInline):
+    model = ArticleImage
+    formset = ArticleImageFormSet
+    extra = 1
+    fields = ("preview", "image", "size", "order", "alt_uz", "alt_ru", "alt_en")
+    readonly_fields = ("preview",)
+    ordering = ("order", "pk")
+
+    @admin.display(description=_("Preview"))
+    def preview(self, obj: ArticleImage) -> str:
+        if not obj.pk or not obj.image:
+            return "—"
+        return format_html(
+            '<img src="{}" style="height:56px;width:auto;border-radius:6px;'
+            'object-fit:cover;border:1px solid var(--border-color,#ddd)" alt="" />',
+            obj.image.url,
+        )
 
 
 @admin.register(Article)
 class ArticleAdmin(LocalizedLabelsMixin, admin.ModelAdmin):
+    inlines = [ArticleImageInline]
     list_display = ("title_uz", "published_on", "is_published", "translation_gaps")
     list_filter = ("is_published", "published_on")
     search_fields = ("slug", "title_uz", "title_ru", "title_en")
