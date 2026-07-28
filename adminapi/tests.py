@@ -8,6 +8,7 @@ unauthorised writes rather than wrong output.
 
 import datetime
 import io
+from unittest import mock
 
 from django.contrib.auth.models import Group, User
 from django.core.cache import cache
@@ -329,6 +330,47 @@ class PhotoUploadTests(PanelTestCase):
         response = self.client.post(self.upload_url, {"images": files})
         self.assertEqual(response.status_code, 400)
         self.assertEqual(self.article.images.count(), 0)
+
+    def test_a_storage_failure_is_explained_rather_than_crashing(self):
+        """
+        The volume photos are written to can be unwritable — a bind mount owned
+        by the wrong user, or a full disk. That used to escape as a bare 500
+        with no body, which the panel could only report as "something went
+        wrong", pointing the editor at their own file instead of at the server.
+        """
+        with mock.patch(
+            "django.core.files.storage.FileSystemStorage._save",
+            side_effect=PermissionError(13, "Permission denied"),
+        ):
+            response = self.client.post(self.upload_url, {"images": [photo_file()]})
+
+        self.assertEqual(response.status_code, 500)
+        self.assertIn("could not be saved", response.json()["detail"])
+        self.assertEqual(self.article.images.count(), 0)
+
+    def test_a_full_disk_says_so(self):
+        with mock.patch(
+            "django.core.files.storage.FileSystemStorage._save",
+            side_effect=OSError(28, "No space left on device"),
+        ):
+            response = self.client.post(self.upload_url, {"images": [photo_file()]})
+
+        self.assertEqual(response.status_code, 500)
+        self.assertIn("out of space", response.json()["detail"])
+
+    def test_an_unexpected_failure_names_itself(self):
+        """
+        Anything unforeseen still has to arrive as a readable sentence, or the
+        next bug is diagnosed by guesswork the way this one was.
+        """
+        with mock.patch(
+            "django.core.files.storage.FileSystemStorage._save",
+            side_effect=RuntimeError("something exotic"),
+        ):
+            response = self.client.post(self.upload_url, {"images": [photo_file()]})
+
+        self.assertEqual(response.status_code, 500)
+        self.assertIn("RuntimeError", response.json()["detail"])
 
     def test_cannot_exceed_ten_photos_across_several_uploads(self):
         """The cap counts what is stored, not just what is in this request."""

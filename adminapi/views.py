@@ -10,7 +10,11 @@ invalidation rather than dropping a token client-side.
 CSRF is enforced by DRF's SessionAuthentication on every unsafe method.
 """
 
+import errno
+import logging
+
 from django.contrib.auth import authenticate, login, logout
+from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.middleware.csrf import get_token
 from rest_framework import status, viewsets
@@ -29,6 +33,39 @@ from .serializers import (
     PanelArticleSerializer,
     PanelImageSerializer,
 )
+
+
+logger = logging.getLogger(__name__)
+
+
+def _upload_failure_detail(exc: BaseException) -> str:
+    """
+    A sentence an editor can act on, for a fault that is not their doing.
+
+    The exception type is named for the unforeseen cases. It is a class name,
+    not a traceback: no paths, no configuration, nothing worth hiding — and
+    this endpoint is reachable only by signed-in staff. Without it, diagnosing
+    the next failure means reading server logs the editor has no access to.
+    """
+    if isinstance(exc, OSError):
+        if exc.errno in (errno.EACCES, errno.EPERM):
+            return (
+                "The photo could not be saved: the server's media storage is "
+                "not writable. This needs an administrator, not a different photo."
+            )
+        if exc.errno in (errno.ENOSPC, errno.EDQUOT):
+            return (
+                "The photo could not be saved: the server is out of space. "
+                "This needs an administrator, not a different photo."
+            )
+        return (
+            "The photo could not be saved: the server's media storage did not "
+            "accept it. This needs an administrator, not a different photo."
+        )
+    return (
+        "The photo could not be saved because of an unexpected server error "
+        f"({type(exc).__name__}). Please report this."
+    )
 
 
 def describe(user) -> dict:
@@ -172,15 +209,24 @@ class PanelArticleViewSet(viewsets.ModelViewSet):
                     photo.full_clean()
                     photo.save()
                     created.append(photo)
-        except Exception as exc:  # noqa: BLE001 — surfaced to the editor verbatim
-            from django.core.exceptions import ValidationError
-
-            if isinstance(exc, ValidationError):
-                return Response(
-                    {"detail": "; ".join(exc.messages)},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            raise
+        except ValidationError as exc:
+            return Response(
+                {"detail": "; ".join(exc.messages)},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Exception as exc:  # noqa: BLE001 — every cause must reach the editor
+            # Storing the file can fail for reasons that have nothing to do with
+            # the upload: a media volume the worker cannot write to, or a full
+            # disk. Left to propagate, those became a 500 with an empty body,
+            # and the panel could only say "something went wrong" — which reads
+            # as "your photo is bad" and sends the editor off resizing files
+            # that were never the problem. So: log the traceback for whoever
+            # runs the server, and answer with a sentence that names the fault.
+            logger.exception("Photo upload failed for article %s", article.slug)
+            return Response(
+                {"detail": _upload_failure_detail(exc)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
         return Response(
             PanelImageSerializer(created, many=True).data,

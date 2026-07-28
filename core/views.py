@@ -1,5 +1,10 @@
 """Shared view behaviour: locale resolution and cache headers."""
 
+import errno
+from pathlib import Path
+from tempfile import NamedTemporaryFile
+
+from django.conf import settings
 from django.db import connection
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
@@ -8,6 +13,33 @@ from rest_framework.views import APIView
 
 from .models import SiteSettings, resolve_locale
 from .serializers import SiteSettingsSerializer
+
+
+def media_status() -> str:
+    """
+    Whether uploaded photos can actually be written.
+
+    MEDIA_ROOT is a mounted volume, so it can be broken independently of
+    everything else here: a bind mount owned by the wrong user leaves the site
+    entirely healthy while every photo upload fails. Nothing else notices —
+    the database check cannot see the filesystem, and the container's own
+    healthcheck only runs `migrate --check`.
+
+    The write is real, because the failure being looked for is a permission
+    one: `os.access` answers from the mode bits and is wrong for exactly the
+    cases that matter.
+    """
+    try:
+        Path(settings.MEDIA_ROOT).mkdir(parents=True, exist_ok=True)
+        with NamedTemporaryFile(dir=settings.MEDIA_ROOT, prefix=".healthz-"):
+            pass
+    except OSError as exc:
+        if exc.errno in (errno.EACCES, errno.EPERM):
+            return "unwritable"
+        if exc.errno in (errno.ENOSPC, errno.EDQUOT):
+            return "full"
+        return "error"
+    return "ok"
 
 
 @require_GET
@@ -19,7 +51,10 @@ def healthz(request):
             cursor.fetchone()
     except Exception:
         return JsonResponse({"status": "unhealthy"}, status=503)
-    return JsonResponse({"status": "ok"})
+
+    # Reported, deliberately not fatal: deploys gate on this endpoint, and
+    # failing it over a broken volume would block the deploy carrying the fix.
+    return JsonResponse({"status": "ok", "media": media_status()})
 
 
 class LocaleMixin:

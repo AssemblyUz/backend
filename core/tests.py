@@ -1,7 +1,11 @@
 """Tests for locale resolution, translation fallback and singletons."""
 
+import shutil
+import tempfile
+from unittest import mock
+
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from .models import DEFAULT_LOCALE, SiteSettings, SocialLink, resolve_locale, translated
@@ -82,7 +86,48 @@ class SiteSettingsAPITests(TestCase):
 
 
 class HealthzTests(TestCase):
+    """
+    MEDIA_ROOT is redirected, or the writability probe creates the real media
+    directory in the checkout every time the suite runs.
+    """
+
+    def setUp(self):
+        self.media = tempfile.mkdtemp(prefix="assembly-healthz-")
+        self.addCleanup(shutil.rmtree, self.media, ignore_errors=True)
+        override = override_settings(MEDIA_ROOT=self.media)
+        override.enable()
+        self.addCleanup(override.disable)
+
     def test_reports_ok_when_database_is_reachable(self):
         response = self.client.get(reverse("healthz"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"status": "ok"})
+        self.assertEqual(response.json(), {"status": "ok", "media": "ok"})
+
+    def test_reports_media_as_unwritable_when_the_volume_cannot_be_written(self):
+        """
+        Uploads land on a mounted volume, which the database check cannot see.
+        A volume the worker cannot write to breaks every photo upload while the
+        rest of the site stays perfectly healthy, so it is reported separately.
+        """
+        with mock.patch(
+            "core.views.NamedTemporaryFile",
+            side_effect=PermissionError(13, "Permission denied"),
+        ):
+            response = self.client.get(reverse("healthz"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["media"], "unwritable")
+
+    def test_stays_ok_overall_when_only_media_is_broken(self):
+        """
+        Deploys gate on this endpoint. Failing it for a broken volume would
+        block the very deploy that carries the fix.
+        """
+        with mock.patch(
+            "core.views.NamedTemporaryFile",
+            side_effect=PermissionError(13, "Permission denied"),
+        ):
+            response = self.client.get(reverse("healthz"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["status"], "ok")
