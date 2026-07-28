@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from core.admin import LocalizedLabelsMixin
 
 from .models import Article, ArticleImage
+from .translation import fill_missing_translations
 
 
 class ArticleImageFormSet(BaseInlineFormSet):
@@ -75,6 +76,25 @@ class ArticleAdmin(LocalizedLabelsMixin, admin.ModelAdmin):
         ),
         (_("Timestamps"), {"fields": ("created_at", "updated_at"), "classes": ("collapse",)}),
     )
+
+    def save_model(self, request, obj, form, change):
+        """
+        Fill the empty locales after saving, as the editor panel does.
+
+        Both admins write the same articles, so a piece of text that appears in
+        three languages when saved from one and in one language when saved from
+        the other would be a trap. Reported rather than silent: whoever saved it
+        should know their Russian and English were written by a machine.
+        """
+        super().save_model(request, obj, form, change)
+        filled = fill_missing_translations(obj)
+        if filled:
+            locales = sorted({name.rsplit("_", 1)[1] for name in filled})
+            self.message_user(
+                request,
+                _("Machine-translated the empty fields into: %(locales)s. Please review.")
+                % {"locales": ", ".join(locale.upper() for locale in locales)},
+            )
 
     @admin.display(description=_("Missing translations"))
     def translation_gaps(self, obj: Article) -> str:

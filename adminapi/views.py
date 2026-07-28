@@ -26,6 +26,7 @@ from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 
 from news.models import Article, ArticleImage
+from news.translation import fill_missing_translations
 
 from .permissions import CanUploadPhotos, IsEditor
 from .serializers import (
@@ -156,6 +157,15 @@ class PanelArticleViewSet(viewsets.ModelViewSet):
             if self.action == "list"
             else PanelArticleSerializer
         )
+
+    def perform_create(self, serializer):
+        fill_missing_translations(serializer.save())
+
+    def perform_update(self, serializer):
+        # Runs on update too, not only on create: an editor writes the Uzbek
+        # first and saves, then adds the body and saves again. Only ever fills
+        # empty fields, so a second save costs nothing once a field is set.
+        fill_missing_translations(serializer.save())
 
     @action(detail=True, methods=["post"], permission_classes=[CanUploadPhotos])
     def photos(self, request, slug=None):

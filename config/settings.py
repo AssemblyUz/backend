@@ -155,6 +155,11 @@ SERVE_MEDIA = env.bool("SERVE_MEDIA", default=True)
 # is what local development wants.
 MEDIA_BASE_URL = env("MEDIA_BASE_URL", default="")
 
+# Filling an article's empty Russian and English fields when it is saved. Blank
+# uses the keyless endpoint, which costs nothing and carries no guarantees; set a
+# key to switch to Google's supported Cloud Translation API. See news/translation.py.
+TRANSLATE_API_KEY = env("TRANSLATE_API_KEY", default="")
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # --- Django REST Framework -------------------------------------------------
