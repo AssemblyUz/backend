@@ -10,16 +10,17 @@ from .models import Submission
 
 @admin.register(Submission)
 class SubmissionAdmin(LocalizedLabelsMixin, admin.ModelAdmin):
-    list_display = ("name", "email", "created_at", "locale", "is_handled")
+    list_display = ("name", "email", "phone", "created_at", "locale", "is_handled")
     list_filter = ("is_handled", "locale", "created_at")
-    search_fields = ("name", "email", "message")
+    search_fields = ("name", "email", "phone", "message")
     date_hierarchy = "created_at"
     actions = ["mark_handled"]
 
     # Submissions are visitor-authored evidence. Editing them would destroy the
     # record; only the triage flag is writable.
     readonly_fields = (
-        "name", "email", "message", "locale", "ip_address", "user_agent", "created_at",
+        "name", "email", "phone", "message", "locale", "ip_address", "user_agent",
+        "created_at",
     )
 
     def has_add_permission(self, request):

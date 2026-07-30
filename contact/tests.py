@@ -77,6 +77,49 @@ class SubmissionValidationTests(UnthrottledTestCase):
         self.assertEqual(Submission.objects.get().name, "Aziz")
 
 
+class ContactDetailsTests(UnthrottledTestCase):
+    """
+    One way to reply is required, and either will do.
+
+    The form presents email and phone as optional individually, so the rule
+    only exists here — which makes it worth pinning down from both sides.
+    """
+
+    def test_phone_alone_is_enough(self):
+        response = self.post(email="", phone="+998 90 123 45 67")
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(Submission.objects.get().phone, "+998 90 123 45 67")
+
+    def test_email_alone_is_enough(self):
+        self.assertEqual(self.post(phone="").status_code, 201)
+
+    def test_rejects_neither_email_nor_phone(self):
+        response = self.post(email="", phone="")
+        self.assertEqual(response.status_code, 400)
+        # Reported against both, so whichever the form focuses can show it.
+        self.assertIn("email", response.json())
+        self.assertIn("phone", response.json())
+        self.assertEqual(Submission.objects.count(), 0)
+
+    def test_accepts_both(self):
+        self.assertEqual(self.post(phone="901234567").status_code, 201)
+
+    def test_rejects_letters_in_phone(self):
+        self.assertEqual(self.post(email="", phone="call me").status_code, 400)
+
+    def test_rejects_too_few_digits(self):
+        self.assertEqual(self.post(email="", phone="12345").status_code, 400)
+
+    def test_rejects_too_many_digits(self):
+        self.assertEqual(self.post(email="", phone="1" * 16).status_code, 400)
+
+    def test_accepts_the_punctuation_people_write_numbers_with(self):
+        for written in ("+998 90 123 45 67", "(90) 123-45-67", "90.123.45.67"):
+            with self.subTest(written=written):
+                Submission.objects.all().delete()
+                self.assertEqual(self.post(email="", phone=written).status_code, 201)
+
+
 class HoneypotTests(UnthrottledTestCase):
     def test_filled_honeypot_is_not_persisted(self):
         response = self.post(website="http://spam.example")
@@ -102,6 +145,16 @@ class NotificationTests(UnthrottledTestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("Aziz", mail.outbox[0].subject)
         self.assertEqual(mail.outbox[0].to, ["team@assembly.uz"])
+
+    def test_notification_carries_both_ways_to_reply(self):
+        self.post(phone="+998 90 123 45 67")
+        body = mail.outbox[0].body
+        self.assertIn("aziz@example.com", body)
+        self.assertIn("+998 90 123 45 67", body)
+
+    def test_notification_marks_the_channel_the_visitor_left_out(self):
+        self.post(email="", phone="+998 90 123 45 67")
+        self.assertIn("Email: —", mail.outbox[0].body)
 
     def test_submission_survives_a_mail_outage(self):
         # A delivery failure must never lose the visitor's message.

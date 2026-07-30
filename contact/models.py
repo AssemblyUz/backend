@@ -13,7 +13,11 @@ class Submission(models.Model):
     """
 
     name = models.CharField(max_length=150)
-    email = models.EmailField()
+    # One of email/phone is required, not both — enforced in the serializer,
+    # where the message can name the field the visitor left blank. A database
+    # constraint here would only ever surface as a 500.
+    email = models.EmailField(blank=True, default="")
+    phone = models.CharField(max_length=32, blank=True, default="")
     message = models.TextField()
 
     locale = models.CharField(max_length=2, blank=True, default="")
@@ -34,4 +38,4 @@ class Submission(models.Model):
         indexes = [models.Index(fields=["-created_at"])]
 
     def __str__(self) -> str:
-        return f"{self.name} <{self.email}>"
+        return f"{self.name} <{self.email or self.phone or 'no contact given'}>"

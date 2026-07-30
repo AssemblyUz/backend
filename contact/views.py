@@ -68,7 +68,9 @@ class ContactCreateView(CreateAPIView):
             send_mail(
                 subject=f"Assembly — new message from {submission.name}",
                 message=(
-                    f"From: {submission.name} <{submission.email}>\n"
+                    f"From: {submission.name}\n"
+                    f"Email: {submission.email or '—'}\n"
+                    f"Phone: {submission.phone or '—'}\n"
                     f"Locale: {submission.locale or 'unknown'}\n\n"
                     f"{submission.message}"
                 ),
