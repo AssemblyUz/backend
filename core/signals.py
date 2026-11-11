@@ -34,11 +34,18 @@ def uzbek_text_fields(model: type[models.Model]) -> tuple[str, ...]:
     )
 
 
-def convert_uzbek_fields(sender, instance, raw=False, **kwargs) -> None:
+def convert_uzbek_fields(sender, instance, raw=False, update_fields=None, **kwargs) -> None:
     # Fixtures are loaded verbatim: `raw` means "write exactly this row".
     if raw:
         return
+
+    # Only columns this save will actually write. Reading a deferred field
+    # costs a query, and converting one outside `update_fields` would leave the
+    # instance disagreeing with the row.
+    deferred = instance.get_deferred_fields()
     for name in uzbek_text_fields(sender):
+        if name in deferred or (update_fields is not None and name not in update_fields):
+            continue
         value = getattr(instance, name)
         if isinstance(value, str) and value:
             converted = to_new(value)

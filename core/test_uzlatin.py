@@ -64,6 +64,12 @@ class ToNewTests(SimpleTestCase):
             "Sayt: https://shahar.uz/yangiliklar/chop, poçta: shohruh@choyxona.uz, @toshkent_shahri",
         )
 
+    def test_scheme_less_links_and_hashtags_are_untouched(self):
+        self.assertEqual(to_new("Kanal: t.me/chorsu, sayt: toshkent.uz."), "Kanal: t.me/chorsu, sayt: toshkent.uz.")
+        self.assertEqual(to_new("#toshkent shahri"), "#toshkent şahri")
+        # Initials and abbreviations are prose, not domains.
+        self.assertEqual(to_new("U.Shodiyev, Toshkent sh., 1-uy"), "U.Şodiyev, Toşkent ş., 1-uy")
+
     def test_message_placeholders_are_untouched(self):
         self.assertEqual(to_new("{search} bo'yicha"), "{search} bõyiça")
         self.assertEqual(to_new("%(choice)s — o'zgartirish"), "%(choice)s — õzgartiriş")
@@ -115,6 +121,21 @@ class SaveHookTests(TestCase):
         project = Project.objects.create(icon="🎓", name="YOSHLAR KAPITALI 2030")
         project.refresh_from_db()
         self.assertEqual(project.name, "YOSHLAR KAPITALI 2030")
+
+    def test_fields_outside_update_fields_are_not_touched(self):
+        article = Article.objects.create(slug="qisman", title_en="Partial")
+        article.title_uz = "Yangi shahar"
+        article.title_ru = "Новый город"
+        article.save(update_fields=["title_ru"])
+        # Not written, so not converted: instance and row must not disagree.
+        self.assertEqual(article.title_uz, "Yangi shahar")
+
+    def test_deferred_fields_are_not_loaded_by_the_hook(self):
+        Article.objects.create(slug="kechiktirilgan", title_uz="Sarlavha")
+        article = Article.objects.only("slug", "icon").get(slug="kechiktirilgan")
+        article.icon = "🗞"
+        with self.assertNumQueries(1):
+            article.save()
 
     def test_conversion_applies_on_update_too(self):
         association = Association.objects.create(name_en="Builders", name_uz="Quruvçilar")

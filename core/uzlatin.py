@@ -17,7 +17,8 @@ services were trained on the 1995 spelling and read "şahar" poorly.
 
 What is deliberately left alone
 -------------------------------
-* URLs, e-mail addresses, @handles, and message placeholders such as `{count}`,
+* URLs (with or without a scheme), e-mail addresses, @handles, #hashtags, and
+  message placeholders such as `{count}`,
   `%(name)s` and `<link>` — rewriting those breaks links and templates.
 * Foreign words. Uzbek has no bare "c" and no "w", so a word containing either
   ("Commerce", "Network") is not Uzbek and keeps its spelling. Names that slip
@@ -135,7 +136,10 @@ _SKIP = re.compile(
     r"https?://\S+"
     r"|www\.\S+"
     r"|[\w.+-]+@[\w-]+(?:\.[\w-]+)+"
-    r"|(?<!\w)@\w+"
+    r"|(?<!\w)[@#]\w+"
+    # Scheme-less links: t.me/chorsu, toshkent.uz. The last label must be
+    # lower-case ASCII, which keeps initials ("U.Shodiyev") out of this.
+    r"|(?<![\w@.])(?:[A-Za-z0-9-]+\.)+[a-z]{2,}(?!\w)(?:/\S*)?"
     r"|\{[^{}]*\}"
     r"|</?[A-Za-z][^<>]*>"
     r"|%\([^)]*\)[a-z]"
