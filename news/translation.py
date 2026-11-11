@@ -39,6 +39,8 @@ from urllib.request import Request, urlopen
 
 from django.conf import settings
 
+from core.uzlatin import to_legacy, to_new
+
 logger = logging.getLogger(__name__)
 
 LOCALES = ("uz", "ru", "en")
@@ -159,6 +161,12 @@ def translate(text: str, source: str, target: str) -> str:
         return ""
 
     provider = _translate_official if settings.TRANSLATE_API_KEY else _translate_free
+
+    # The site stores Uzbek in the reformed alphabet (õ ğ ş ç), but translation
+    # services know the 1995 spelling (oʻ gʻ sh ch). Hand them what they were
+    # trained on, and bring what they return back into the site's alphabet.
+    if source == "uz":
+        text = to_legacy(text)
     paragraphs = text.split("\n\n")
 
     def render(paragraph: str) -> str:
@@ -167,7 +175,8 @@ def translate(text: str, source: str, target: str) -> str:
         return " ".join(provider(chunk, source, target) for chunk in _chunks(paragraph))
 
     with ThreadPoolExecutor(max_workers=_MAX_WORKERS) as pool:
-        return "\n\n".join(pool.map(render, paragraphs))
+        translated = "\n\n".join(pool.map(render, paragraphs))
+    return to_new(translated) if target == "uz" else translated
 
 
 def source_locale(article) -> str | None:

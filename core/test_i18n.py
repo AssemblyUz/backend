@@ -73,7 +73,7 @@ class CatalogueTests(TestCase):
 class ModelNameTranslationTests(TestCase):
     def test_model_verbose_names_translate(self):
         expected = {
-            "uz": ("Maqola", "Uyushma", "Sayt sozlamalari"),
+            "uz": ("Maqola", "Uyuşma", "Sayt sozlamalari"),
             "ru": ("Статья", "Ассоциация", "Настройки сайта"),
             "en": ("Article", "Association", "Site settings"),
         }
@@ -97,7 +97,7 @@ class ModelNameTranslationTests(TestCase):
         # The admin shows this as the object subtitle.
         home = HomeContent.load()
         with translation.override("uz"):
-            self.assertEqual(str(home), "Bosh sahifa kontenti")
+            self.assertEqual(str(home), "Boş sahifa kontenti")
         with translation.override("en"):
             self.assertEqual(str(home), "Home page content")
 
@@ -110,7 +110,7 @@ class FieldLabelTests(TestCase):
 
     def test_locale_suffixed_field_translates_its_base(self):
         with translation.override("uz"):
-            self.assertEqual(str(field_label("hero_title_uz")), "Bosh blok sarlavhasi (UZ)")
+            self.assertEqual(str(field_label("hero_title_uz")), "Boş blok sarlavhasi (UZ)")
         with translation.override("ru"):
             self.assertEqual(str(field_label("hero_title_en")), "Заголовок главного блока (EN)")
 
@@ -182,7 +182,7 @@ class LanguageSwitcherTests(TestCase):
     def test_unknown_language_is_rejected_and_default_kept(self):
         self.client.post(reverse("set_language"), {"language": "xx", "next": "/admin/login/"})
         html = self.client.get(reverse("admin:login")).content.decode()
-        self.assertIn("Kirish", html)  # still Uzbek, the default
+        self.assertIn("Kiriş", html)  # still Uzbek, the default
 
 
 class AdminChromeTranslationTests(TestCase):
@@ -223,12 +223,12 @@ class AdminChromeTranslationTests(TestCase):
         Article.objects.create(slug="a-post", title_uz="Post")
 
         html = self.get(reverse("admin:news_article_changelist"), "uz")
-        self.assertIn("Tanlangan maqolalarni nashr qilish", html)
+        self.assertIn("Tanlangan maqolalarni naşr qiliş", html)
 
     def test_fieldset_legend_translates(self):
         HomeContent.load()
         html = self.get(reverse("admin:pages_homecontent_change", args=[1]), "uz")
-        self.assertIn("Bosh blok", html)
+        self.assertIn("Boş blok", html)
 
     def test_field_label_translates_on_the_change_form(self):
         HomeContent.load()
@@ -240,11 +240,11 @@ class AdminChromeTranslationTests(TestCase):
         # catalogue supplies these.
         with translation.override("uz"):
             for msgid, expected in (
-                ("Log in", "Kirish"),
-                ("Home", "Bosh sahifa"),
+                ("Log in", "Kiriş"),
+                ("Home", "Boş sahifa"),
                 ("History", "Tarix"),
                 ("Action", "Amal"),
-                ("username", "foydalanuvchi nomi"),
+                ("username", "foydalanuvçi nomi"),
             ):
                 with self.subTest(msgid=msgid):
                     self.assertEqual(translation.gettext(msgid), expected)

@@ -21,6 +21,7 @@ from django.db import transaction
 
 from catalog.models import Association, Partner, PartnerGroup, Project, Service
 from core.models import LOCALES, SiteSettings, SocialLink
+from core.uzlatin import to_new
 from news.models import Article
 from pages.models import (
     AboutContent,
@@ -317,7 +318,9 @@ class Command(BaseCommand):
         for index in range(len(items["uz"])):
             Service.objects.update_or_create(
                 icon=items["uz"][index]["icon"],
-                name_uz=items["uz"][index]["name"],
+                # Rows are stored converted (core.signals), so look them up
+                # that way too or every run would add a duplicate.
+                name_uz=to_new(items["uz"][index]["name"]),
                 defaults={
                     **tr_item(items, index, "name"),
                     **tr_item(items, index, "desc"),
@@ -346,7 +349,7 @@ class Command(BaseCommand):
         written = 0
         for index in range(len(groups["uz"])):
             group, _ = PartnerGroup.objects.update_or_create(
-                title_uz=groups["uz"][index]["title"],
+                title_uz=to_new(groups["uz"][index]["title"]),
                 defaults={
                     **tr_item(groups, index, "title"),
                     "order": index,

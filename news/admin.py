@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
-from core.admin import LocalizedLabelsMixin
+from core.admin import LocalizedLabelsMixin, UzbekSearchMixin
 
 from .models import Article, ArticleImage
 from .translation import fill_missing_translations
@@ -52,7 +52,7 @@ class ArticleImageInline(admin.TabularInline):
 
 
 @admin.register(Article)
-class ArticleAdmin(LocalizedLabelsMixin, admin.ModelAdmin):
+class ArticleAdmin(UzbekSearchMixin, LocalizedLabelsMixin, admin.ModelAdmin):
     inlines = [ArticleImageInline]
     list_display = ("title_uz", "published_on", "is_published", "translation_gaps")
     list_filter = ("is_published", "published_on")

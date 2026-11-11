@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = env("LANGUAGE_CODE", default="uz")
 
 LANGUAGES = [
-    ("uz", _("O'zbekcha")),
+    ("uz", _("Õzbekça")),
     ("ru", _("Русский")),
     ("en", _("English")),
 ]
