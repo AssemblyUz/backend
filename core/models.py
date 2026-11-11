@@ -10,7 +10,7 @@ LOCALES = ("uz", "ru", "en")
 #: Used when a requested locale is unknown, or a translation is left blank.
 DEFAULT_LOCALE = "uz"
 
-LOCALE_CHOICES = [("uz", "O'zbekcha"), ("ru", "Русский"), ("en", "English")]
+LOCALE_CHOICES = [("uz", "Õzbekça"), ("ru", "Русский"), ("en", "English")]
 
 
 def resolve_locale(value: str | None) -> str:

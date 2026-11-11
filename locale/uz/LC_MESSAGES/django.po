@@ -9,7 +9,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Assembly control panel"
-msgstr "Assambleya boshqaruv paneli"
+msgstr "Assambleya boşqaruv paneli"
 
 msgid "Assembly"
 msgstr "Assambleya"
@@ -18,7 +18,7 @@ msgid "Website content"
 msgstr "Sayt kontenti"
 
 msgid "Control panel"
-msgstr "Boshqaruv paneli"
+msgstr "Boşqaruv paneli"
 
 msgid "Site"
 msgstr "Sayt"
@@ -45,16 +45,16 @@ msgid "Social links"
 msgstr "Ijtimoiy havolalar"
 
 msgid "Home page content"
-msgstr "Bosh sahifa kontenti"
+msgstr "Boş sahifa kontenti"
 
 msgid "About page content"
 msgstr "«Biz haqimizda» sahifasi kontenti"
 
 msgid "Stat"
-msgstr "Ko'rsatkich"
+msgstr "Kõrsatkiç"
 
 msgid "Stats"
-msgstr "Ko'rsatkichlar"
+msgstr "Kõrsatkiçlar"
 
 msgid "Highlight"
 msgstr "Asosiy raqam"
@@ -75,10 +75,10 @@ msgid "Values"
 msgstr "Qadriyatlar"
 
 msgid "Direction"
-msgstr "Yo'nalish"
+msgstr "Yõnaliş"
 
 msgid "Directions"
-msgstr "Yo'nalishlar"
+msgstr "Yõnalişlar"
 
 msgid "Architecture node"
 msgstr "Arxitektura tuguni"
@@ -87,10 +87,10 @@ msgid "Architecture nodes"
 msgstr "Arxitektura tugunlari"
 
 msgid "Mechanism step"
-msgstr "Mexanizm bosqichi"
+msgstr "Mexanizm bosqiçi"
 
 msgid "Mechanism steps"
-msgstr "Mexanizm bosqichlari"
+msgstr "Mexanizm bosqiçlari"
 
 msgid "Functional block"
 msgstr "Funksional blok"
@@ -111,10 +111,10 @@ msgid "Stakeholder values"
 msgstr "Manfaatdor tomonlar qiymati"
 
 msgid "Roadmap stage"
-msgstr "Yo'l xaritasi bosqichi"
+msgstr "Yõl xaritasi bosqiçi"
 
 msgid "Roadmap stages"
-msgstr "Yo'l xaritasi bosqichlari"
+msgstr "Yõl xaritasi bosqiçlari"
 
 msgid "KPI"
 msgstr "KPI"
@@ -129,10 +129,10 @@ msgid "Results"
 msgstr "Natijalar"
 
 msgid "Association"
-msgstr "Uyushma"
+msgstr "Uyuşma"
 
 msgid "Associations"
-msgstr "Uyushmalar"
+msgstr "Uyuşmalar"
 
 msgid "Service"
 msgstr "Xizmat"
@@ -171,16 +171,16 @@ msgid "Submissions"
 msgstr "Murojaatlar"
 
 msgid "Identity"
-msgstr "Nomlanish"
+msgstr "Nomlaniş"
 
 msgid "Hero"
-msgstr "Bosh blok"
+msgstr "Boş blok"
 
 msgid "About band"
 msgstr "«Biz haqimizda» bloki"
 
 msgid "Section headings"
-msgstr "Bo'lim sarlavhalari"
+msgstr "Bõlim sarlavhalari"
 
 msgid "Closing banner"
 msgstr "Yakuniy banner"
@@ -189,7 +189,7 @@ msgid "Page header"
 msgstr "Sahifa sarlavhasi"
 
 msgid "Introduction"
-msgstr "Kirish"
+msgstr "Kiriş"
 
 msgid "Mission & goal"
 msgstr "Missiya va maqsad"
@@ -207,37 +207,37 @@ msgid "AI MediaNet"
 msgstr "AI MediaNet"
 
 msgid "Roadmap & KPI"
-msgstr "Yo'l xaritasi va KPI"
+msgstr "Yõl xaritasi va KPI"
 
 msgid "Results & slogan"
-msgstr "Natijalar va shior"
+msgstr "Natijalar va şior"
 
 msgid "Field of activity"
-msgstr "Faoliyat yo'nalishi"
+msgstr "Faoliyat yõnalişi"
 
 msgid "Publishing"
-msgstr "Nashr"
+msgstr "Naşr"
 
 msgid "Timestamps"
 msgstr "Vaqt belgilari"
 
 msgid "Publish selected articles"
-msgstr "Tanlangan maqolalarni nashr qilish"
+msgstr "Tanlangan maqolalarni naşr qiliş"
 
 msgid "Unpublish selected articles"
-msgstr "Tanlangan maqolalarni nashrdan olish"
+msgstr "Tanlangan maqolalarni naşrdan oliş"
 
 msgid "Mark selected as handled"
-msgstr "Tanlanganlarni ko'rib chiqilgan deb belgilash"
+msgstr "Tanlanganlarni kõrib çiqilgan deb belgilaş"
 
 msgid "Missing translations"
-msgstr "Yetishmayotgan tarjimalar"
+msgstr "Yetişmayotgan tarjimalar"
 
 msgid "Site live"
-msgstr "Sayt ishga tushgan"
+msgstr "Sayt işga tuşgan"
 
 msgid "Separate paragraphs with a blank line."
-msgstr "Xatboshilarni bo'sh satr bilan ajrating."
+msgstr "Xatboşilarni bõş satr bilan ajrating."
 
 msgid "About lead"
 msgstr "«Biz haqimizda» matni"
@@ -261,10 +261,10 @@ msgid "Architecture title"
 msgstr "Arxitektura sarlavhasi"
 
 msgid "Assoc lead"
-msgstr "Uyushmalar matni"
+msgstr "Uyuşmalar matni"
 
 msgid "Assoc title"
-msgstr "Uyushmalar sarlavhasi"
+msgstr "Uyuşmalar sarlavhasi"
 
 msgid "Blocks lead"
 msgstr "Bloklar matni"
@@ -294,7 +294,7 @@ msgid "Cta primary"
 msgstr "Asosiy tugma"
 
 msgid "Cta secondary"
-msgstr "Qo'shimcha tugma"
+msgstr "Qõşimça tugma"
 
 msgid "Desc"
 msgstr "Tavsif"
@@ -303,13 +303,13 @@ msgid "Description"
 msgstr "Tavsif"
 
 msgid "Directions lead"
-msgstr "Yo'nalishlar matni"
+msgstr "Yõnalişlar matni"
 
 msgid "Directions title"
-msgstr "Yo'nalishlar sarlavhasi"
+msgstr "Yõnalişlar sarlavhasi"
 
 msgid "Excerpt"
-msgstr "Qisqacha"
+msgstr "Qisqaça"
 
 msgid "Formula"
 msgstr "Formula"
@@ -327,22 +327,22 @@ msgid "Goal title"
 msgstr "Maqsad sarlavhasi"
 
 msgid "Hero badge"
-msgstr "Bosh blok yorlig'i"
+msgstr "Boş blok yorliği"
 
 msgid "Hero lead"
-msgstr "Bosh blok matni"
+msgstr "Boş blok matni"
 
 msgid "Hero title"
-msgstr "Bosh blok sarlavhasi"
+msgstr "Boş blok sarlavhasi"
 
 msgid "Intro"
-msgstr "Kirish matni"
+msgstr "Kiriş matni"
 
 msgid "Intro note"
-msgstr "Kirish izohi"
+msgstr "Kiriş izohi"
 
 msgid "Intro title"
-msgstr "Kirish sarlavhasi"
+msgstr "Kiriş sarlavhasi"
 
 msgid "Kpi title"
 msgstr "KPI sarlavhasi"
@@ -351,7 +351,7 @@ msgid "Label"
 msgstr "Yorliq"
 
 msgid "Lead"
-msgstr "Kirish matni"
+msgstr "Kiriş matni"
 
 msgid "Mechanism lead"
 msgstr "Mexanizm matni"
@@ -366,7 +366,7 @@ msgid "Media summary"
 msgstr "Media xulosasi"
 
 msgid "Media tagline"
-msgstr "Media shiori"
+msgstr "Media şiori"
 
 msgid "Media title"
 msgstr "Media sarlavhasi"
@@ -375,16 +375,16 @@ msgid "Mission"
 msgstr "Missiya"
 
 msgid "Mission section lead"
-msgstr "Missiya bo'limi matni"
+msgstr "Missiya bõlimi matni"
 
 msgid "Mission section title"
-msgstr "Missiya bo'limi sarlavhasi"
+msgstr "Missiya bõlimi sarlavhasi"
 
 msgid "Mission title"
 msgstr "Missiya sarlavhasi"
 
 msgid "Motto"
-msgstr "Shior"
+msgstr "Şior"
 
 msgid "Name"
 msgstr "Nomi"
@@ -417,10 +417,10 @@ msgid "Results title"
 msgstr "Natijalar sarlavhasi"
 
 msgid "Roadmap lead"
-msgstr "Yo'l xaritasi matni"
+msgstr "Yõl xaritasi matni"
 
 msgid "Roadmap title"
-msgstr "Yo'l xaritasi sarlavhasi"
+msgstr "Yõl xaritasi sarlavhasi"
 
 msgid "Role title"
 msgstr "Rol sarlavhasi"
@@ -435,7 +435,7 @@ msgid "Short"
 msgstr "Qisqa nomi"
 
 msgid "Slogan"
-msgstr "Shior"
+msgstr "Şior"
 
 msgid "Sub"
 msgstr "Izoh"
@@ -444,7 +444,7 @@ msgid "Tag"
 msgstr "Teg"
 
 msgid "Tagline"
-msgstr "Shior"
+msgstr "Şior"
 
 msgid "Text"
 msgstr "Matn"
@@ -486,10 +486,10 @@ msgid "Ip address"
 msgstr "IP manzil"
 
 msgid "Is handled"
-msgstr "Ko'rib chiqilgan"
+msgstr "Kõrib çiqilgan"
 
 msgid "Is published"
-msgstr "Nashr qilingan"
+msgstr "Naşr qilingan"
 
 msgid "Locale"
 msgstr "Til"
@@ -507,7 +507,7 @@ msgid "Platform"
 msgstr "Platforma"
 
 msgid "Published on"
-msgstr "Nashr sanasi"
+msgstr "Naşr sanasi"
 
 msgid "Slug"
 msgstr "Slug"
@@ -519,10 +519,10 @@ msgid "Url"
 msgstr "Havola"
 
 msgid "User agent"
-msgstr "Foydalanuvchi agenti"
+msgstr "Foydalanuvçi agenti"
 
 msgid "Home"
-msgstr "Bosh sahifa"
+msgstr "Boş sahifa"
 
 msgid "Action"
 msgstr "Amal"
@@ -534,19 +534,19 @@ msgid "History"
 msgstr "Tarix"
 
 msgid "Search"
-msgstr "Qidirish"
+msgstr "Qidiriş"
 
 msgid "Filter"
 msgstr "Filtr"
 
 msgid "View site"
-msgstr "Saytni ko'rish"
+msgstr "Saytni kõriş"
 
 msgid "Change password"
-msgstr "Parolni o'zgartirish"
+msgstr "Parolni õzgartiriş"
 
 msgid "Recent actions"
-msgstr "So'nggi amallar"
+msgstr "Sõnggi amallar"
 
 msgid "My actions"
 msgstr "Mening amallarim"
@@ -555,40 +555,40 @@ msgid "None available"
 msgstr "Mavjud emas"
 
 msgid "Save and continue editing"
-msgstr "Saqlash va tahrirni davom ettirish"
+msgstr "Saqlaş va tahrirni davom ettiriş"
 
 msgid "Save and add another"
-msgstr "Saqlash va yana qo'shish"
+msgstr "Saqlaş va yana qõşiş"
 
 msgid "Log in"
-msgstr "Kirish"
+msgstr "Kiriş"
 
 msgid "Username"
-msgstr "Foydalanuvchi nomi"
+msgstr "Foydalanuvçi nomi"
 
 msgid "Django administration"
-msgstr "Boshqaruv paneli"
+msgstr "Boşqaruv paneli"
 
 msgid "Site administration"
-msgstr "Sayt boshqaruvi"
+msgstr "Sayt boşqaruvi"
 
 msgid "Breadcrumbs"
-msgstr "Yo'l ko'rsatkichi"
+msgstr "Yõl kõrsatkiçi"
 
 msgid "Go"
-msgstr "Bajarish"
+msgstr "Bajariş"
 
 msgid "Save as new"
-msgstr "Yangi sifatida saqlash"
+msgstr "Yangi sifatida saqlaş"
 
 msgid "Select %s to change"
-msgstr "%s — o'zgartirish uchun tanlang"
+msgstr "%s — õzgartiriş uçun tanlang"
 
 msgid "user"
-msgstr "foydalanuvchi"
+msgstr "foydalanuvçi"
 
 msgid "users"
-msgstr "foydalanuvchilar"
+msgstr "foydalanuvçilar"
 
 msgid "group"
 msgstr "guruh"
@@ -597,19 +597,19 @@ msgid "groups"
 msgstr "guruhlar"
 
 msgid "Toggle theme (current theme: auto)"
-msgstr "Mavzuni almashtirish (joriy mavzu: avto)"
+msgstr "Mavzuni almaştiriş (joriy mavzu: avto)"
 
 msgid "Toggle theme (current theme: light)"
-msgstr "Mavzuni almashtirish (joriy mavzu: yorug')"
+msgstr "Mavzuni almaştiriş (joriy mavzu: yoruğ)"
 
 msgid "Toggle theme (current theme: dark)"
-msgstr "Mavzuni almashtirish (joriy mavzu: tungi)"
+msgstr "Mavzuni almaştiriş (joriy mavzu: tungi)"
 
 msgid "username"
-msgstr "foydalanuvchi nomi"
+msgstr "foydalanuvçi nomi"
 
 msgid "email address"
-msgstr "elektron pochta manzili"
+msgstr "elektron poçta manzili"
 
 msgid "first name"
 msgstr "ism"
@@ -624,19 +624,19 @@ msgid "staff status"
 msgstr "xodim maqomi"
 
 msgid "superuser status"
-msgstr "superfoydalanuvchi maqomi"
+msgstr "superfoydalanuvçi maqomi"
 
 msgid "user permissions"
-msgstr "foydalanuvchi ruxsatlari"
+msgstr "foydalanuvçi ruxsatlari"
 
 msgid "last login"
-msgstr "oxirgi kirish"
+msgstr "oxirgi kiriş"
 
 msgid "date joined"
-msgstr "qo'shilgan sana"
+msgstr "qõşilgan sana"
 
 msgid "Personal info"
-msgstr "Shaxsiy ma'lumotlar"
+msgstr "Şaxsiy ma'lumotlar"
 
 msgid "Permissions"
 msgstr "Ruxsatlar"

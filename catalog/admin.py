@@ -3,13 +3,13 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from core.admin import LocalizedLabelsMixin
+from core.admin import LocalizedLabelsMixin, UzbekSearchMixin
 
 from .models import Association, Partner, PartnerGroup, Project, Service
 
 
 @admin.register(Association)
-class AssociationAdmin(LocalizedLabelsMixin, admin.ModelAdmin):
+class AssociationAdmin(UzbekSearchMixin, LocalizedLabelsMixin, admin.ModelAdmin):
     list_display = ("name_uz", "name_en", "chairman", "is_published", "order")
     list_editable = ("is_published", "order")
     list_filter = ("is_published",)
@@ -25,7 +25,7 @@ class AssociationAdmin(LocalizedLabelsMixin, admin.ModelAdmin):
 
 
 @admin.register(Service)
-class ServiceAdmin(LocalizedLabelsMixin, admin.ModelAdmin):
+class ServiceAdmin(UzbekSearchMixin, LocalizedLabelsMixin, admin.ModelAdmin):
     list_display = ("icon", "name_uz", "name_en", "is_published", "order")
     list_editable = ("is_published", "order")
     list_filter = ("is_published",)

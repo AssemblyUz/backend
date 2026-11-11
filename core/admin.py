@@ -5,6 +5,7 @@ from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 from .models import LOCALES, SiteSettings, SocialLink
+from .uzlatin import to_new
 
 #: Badge appended to a translated field's label, e.g. "Sarlavha (UZ)".
 LOCALE_BADGE = {"uz": "UZ", "ru": "RU", "en": "EN"}
@@ -43,6 +44,29 @@ class LocalizedLabelsMixin:
         if formfield is not None:
             formfield.label = field_label(db_field.name)
         return formfield
+
+
+class UzbekSearchMixin:
+    """
+    Lets an editor search in the spelling their keyboard produces.
+
+    Uzbek is stored in the reformed alphabet, so a search for "o'zbekiston" or
+    "shahar" would otherwise match nothing. The term is tried both as typed and
+    converted; "as typed" still has to work for Russian, English and slugs.
+    """
+
+    def get_search_results(self, request, queryset, search_term):
+        results, may_have_duplicates = super().get_search_results(
+            request, queryset, search_term
+        )
+        converted = to_new(search_term)
+        if converted != search_term:
+            more, more_duplicates = super().get_search_results(
+                request, queryset, converted
+            )
+            results = results | more
+            may_have_duplicates = may_have_duplicates or more_duplicates
+        return results, may_have_duplicates
 
 
 class SingletonAdmin(LocalizedLabelsMixin, admin.ModelAdmin):

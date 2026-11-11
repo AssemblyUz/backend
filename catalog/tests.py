@@ -40,11 +40,11 @@ class AssociationTests(TestCase):
         self.assertEqual(response.json(), [])
 
     def test_detail_lookup_is_by_slug(self):
-        Association.objects.create(name_en="Visible One", name_uz="Ko'rinadigan")
+        Association.objects.create(name_en="Visible One", name_uz="Kõrinadigan")
         url = reverse("v1:association-detail", kwargs={"slug": "visible-one"})
         response = self.client.get(url, {"locale": "uz"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["name"], "Ko'rinadigan")
+        self.assertEqual(response.json()["name"], "Kõrinadigan")
 
 
 class ProjectTests(TestCase):

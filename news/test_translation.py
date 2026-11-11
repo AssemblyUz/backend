@@ -82,6 +82,23 @@ class TranslateTests(TestCase):
         official.assert_called_once()
         free.assert_not_called()
 
+    def test_uzbek_is_sent_to_the_provider_in_the_spelling_it_knows(self):
+        # Stored as "Õzbekiston yoşlari"; providers were trained on oʻ/sh.
+        with mock.patch(
+            "news.translation._translate_free", side_effect=fake_translation
+        ) as provider:
+            translate("Õzbekiston yoşlari uçun.", "uz", "en")
+
+        provider.assert_called_once_with("Oʻzbekiston yoshlari uchun.", "uz", "en")
+
+    def test_uzbek_coming_back_is_stored_in_the_reformed_alphabet(self):
+        with mock.patch(
+            "news.translation._translate_free", return_value="O'zbekiston yoshlari uchun."
+        ):
+            result = translate("Для молодёжи Узбекистана.", "ru", "uz")
+
+        self.assertEqual(result, "Õzbekiston yoşlari uçun.")
+
 
 class FillMissingTranslationsTests(TestCase):
     def setUp(self):
